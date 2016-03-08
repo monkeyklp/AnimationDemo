@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.Button;
@@ -42,12 +41,12 @@ public class AnimationViewActivity extends AppCompatActivity {
             }
         });
         mView = (View) findViewById(R.id.view_animation);
-        Fade explode = new Fade ();
-        explode.setDuration(500);
-        // 进入时的跳转动画
-        getWindow().setEnterTransition(explode);
-        // 返回时的跳转动画
-        getWindow().setReturnTransition(explode);
+//        Fade explode = new Fade ();
+//        explode.setDuration(500);
+//        // 进入时的跳转动画
+//        getWindow().setEnterTransition(explode);
+//        // 返回时的跳转动画
+//        getWindow().setReturnTransition(explode);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
