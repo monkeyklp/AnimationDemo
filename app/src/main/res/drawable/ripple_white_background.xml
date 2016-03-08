@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ripple-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:color="#000">-->
+
+    <!--&lt;!&ndash; &ndash;&gt;-->
+    <!--&lt;!&ndash;<item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<shape android:shape="oval">&ndash;&gt;-->
+            <!--&lt;!&ndash;<solid android:color="@color/accent_material_dark"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</shape>&ndash;&gt;-->
+    <!--&lt;!&ndash;</item>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<item android:id="@android:id/mask">&ndash;&gt;-->
+    <!--<color android:color="@color/accent_material_dark"/>-->
+<!--&lt;!&ndash;</item>&ndash;&gt;-->
+
+<!--</ripple>-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/darker_gray" android:state_pressed="true"/>
+    <item android:drawable="@android:color/white"/>
+</selector>
