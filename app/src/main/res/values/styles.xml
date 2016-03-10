@@ -29,4 +29,10 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="MaterialAnimations.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@android:color/holo_blue_light</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>
