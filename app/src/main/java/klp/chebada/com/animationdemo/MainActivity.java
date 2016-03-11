@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         String items[] = new String[]{
                 "普通view的水波纹效果",
                 "button的水波纹效果",
-                "揭露效果"
+                "揭露效果",
+                "Shared Elements"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 2) {//揭露效果
                     AnimationViewActivity.startActivity(MainActivity.this);
+                }
+                if(position == 3) { //share elements
+                    SharedElementsActivity.startActivity(MainActivity.this);
                 }
             }
         });
