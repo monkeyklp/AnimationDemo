@@ -26,8 +26,9 @@
         <activity android:name=".AnimationViewActivity"
                   android:label="@string/animation_view_name"/>
         <activity android:name=".SharedElementsActivity">
-
         </activity>
+        <activity android:name=".SwipeRefreshActivity"
+            android:label="@string/swipe_refresh_activity"/>
     </application>
 
 </manifest>

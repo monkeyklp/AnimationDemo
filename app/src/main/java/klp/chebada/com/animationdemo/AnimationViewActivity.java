@@ -63,7 +63,7 @@ public class AnimationViewActivity extends AppCompatActivity {
 
         int finalRadius = Math.max(mView.getWidth(), mView.getHeight());
 
-        Animator anim = ViewAnimationUtils.createCircularReveal(mView, cx, cy, 0, finalRadius);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mView, 0, 0, 0, finalRadius);
 
         mView.setVisibility(View.VISIBLE);
         anim.start();
@@ -76,13 +76,13 @@ public class AnimationViewActivity extends AppCompatActivity {
 
         int initialRadius = mView.getWidth();
 
-        Animator anim = ViewAnimationUtils.createCircularReveal(mView, cx, cy, initialRadius, 0);
+        Animator anim = ViewAnimationUtils.createCircularReveal(mView, 0, 0, initialRadius, 0);
 
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                mView.setVisibility(View.INVISIBLE);
+                mView.setVisibility(View.GONE);
             }
         });
 
