@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 "button的水波纹效果",
                 "揭露效果",
                 "Shared Elements",
-                "SwipeRefreshActivity"
+                "SwipeRefreshActivity",
+                "CoordinatorLayout & Toolbar Simple"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -68,11 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 if(position == 2) {//揭露效果
                     AnimationViewActivity.startActivity(MainActivity.this);
                 }
-                if(position == 3) { //share elements
+                if(position == 3) { //share
                     SharedElementsActivity.startActivity(MainActivity.this);
                 }
                 if(position == 4) { //SwipeRefreshLayout
                     SwipeRefreshActivity.startActivity(MainActivity.this);
+                }
+                if(position == 5) {//CoordinatorLayout & Toolbar
+                    CoordinatorSimpleActivity.startActivity(MainActivity.this);
                 }
             }
         });
