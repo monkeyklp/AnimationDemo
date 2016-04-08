@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Explode explode = new Explode();
-        explode.setDuration(500);
-        // 进入时的跳转动画
-        getWindow().setEnterTransition(explode);
-        // 返回时的跳转动画
-        getWindow().setReturnTransition(explode);
+//        Explode explode = new Explode();
+//        explode.setDuration(500);
+//        // 进入时的跳转动画
+//        getWindow().setEnterTransition(explode);
+//        // 返回时的跳转动画
+//        getWindow().setReturnTransition(explode);
     }
 
 
