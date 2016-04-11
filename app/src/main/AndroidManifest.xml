@@ -30,6 +30,7 @@
         <activity android:name=".SwipeRefreshActivity"
             android:label="@string/swipe_refresh_activity"/>
         <activity android:name=".CoordinatorSimpleActivity"/>
+        <activity android:name=".BehaviorActivity"/>
     </application>
 
 </manifest>

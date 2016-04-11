@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 "揭露效果",
                 "Shared Elements",
                 "SwipeRefreshActivity",
-                "CoordinatorLayout & Toolbar Simple"
+                "CoordinatorLayout & Toolbar Simple",
+                "自定义 Behavior"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 5) {//CoordinatorLayout & Toolbar
                     CoordinatorSimpleActivity.startActivity(MainActivity.this);
+                }
+                if(position == 6) {//自定义Behavior
+                    BehaviorActivity.startActivity(MainActivity.this);
                 }
             }
         });
