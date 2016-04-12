@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 "Shared Elements",
                 "SwipeRefreshActivity",
                 "CoordinatorLayout & Toolbar Simple",
-                "自定义 Behavior"
+                "自定义 Behavior",
+                "自定义 Behavior2"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 6) {//自定义Behavior
                     BehaviorActivity.startActivity(MainActivity.this);
+                }
+                if(position == 7) {//自定义Behavior2
+                    Behavior2Activity.startActivity(MainActivity.this);
                 }
             }
         });
