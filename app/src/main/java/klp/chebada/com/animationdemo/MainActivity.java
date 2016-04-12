@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 "Shared Elements",
                 "SwipeRefreshActivity",
                 "CoordinatorLayout & Toolbar Simple",
-                "自定义 Behavior",
-                "自定义 Behavior2"
+                "自定义 Behavior 嵌套滚动",
+                "自定义 Behavior2 View之间的依赖"
         };
 
         for (int i = 0; i < items.length; i++) {

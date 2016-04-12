@@ -2,8 +2,8 @@ package klp.chebada.com.animationdemo.behavior;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
@@ -25,40 +25,26 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
         super(context, attrs);
     }
 
-
+    //1.判断滑动的方向 我们需要垂直滑动
     @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
-        return dependency instanceof AppBarLayout;
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
+        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
-
+    //2.根据滑动的距离显示和隐藏footer view
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
-        float translationY = Math.abs(dependency.getTranslationY());
-        child.setTranslationY(translationY);
-        return true;
+    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
+            child.animate().cancel();
+            sinceDirectionChange = 0;
+        }
+        sinceDirectionChange += dy;
+        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
+            hide(child);
+        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
+            show(child);
+        }
     }
-
-//    //1.判断滑动的方向 我们需要垂直滑动
-//    @Override
-//    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-//        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
-//    }
-//
-//    //2.根据滑动的距离显示和隐藏footer view
-//    @Override
-//    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-//        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
-//            child.animate().cancel();
-//            sinceDirectionChange = 0;
-//        }
-//        sinceDirectionChange += dy;
-//        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
-//            hide(child);
-//        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
-//            show(child);
-//        }
-//    }
 
 
     private void hide(final View view) {
