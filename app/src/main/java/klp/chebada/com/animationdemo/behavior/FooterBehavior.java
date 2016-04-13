@@ -4,18 +4,18 @@ import android.animation.Animator;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 
 /**
  * Created by klp13115 on 2016/4/11.
  */
 public class FooterBehavior extends CoordinatorLayout.Behavior {
 
-    private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
+    private static final Interpolator INTERPOLATOR = new LinearInterpolator();
 
 
     private int sinceDirectionChange;
@@ -31,21 +31,32 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
-    //2.根据滑动的距离显示和隐藏footer view
+//    //2.根据滑动的距离显示和隐藏footer view
+//    @Override
+//    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+//        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
+//            child.animate().cancel();
+//            sinceDirectionChange = 0;
+//        }
+//        sinceDirectionChange += dy;
+//        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
+//            hide(child);
+//        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
+//            show(child);
+//        }
+//    }
+
     @Override
-    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
-            child.animate().cancel();
-            sinceDirectionChange = 0;
-        }
-        sinceDirectionChange += dy;
-        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
+    public void onNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+        if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
+            // User scrolled down and the FAB is currently visible -> hide the FAB
             hide(child);
-        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
-            show(child);
+        } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
+            // User scrolled up and the FAB is currently not visible -> show the FAB
+           show(child);
         }
     }
-
 
     private void hide(final View view) {
         ViewPropertyAnimator animator = view.animate().translationY(view.getHeight()).setInterpolator(INTERPOLATOR).setDuration(200);
