@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 "SwipeRefreshActivity",
                 "CoordinatorLayout & Toolbar Simple",
                 "自定义 Behavior 嵌套滚动",
-                "自定义 Behavior2 View之间的依赖"
+                "自定义 Behavior2 View之间的依赖",
+                "RecyclerView"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -84,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 7) {//自定义Behavior2
                     Behavior2Activity.startActivity(MainActivity.this);
+                }
+                if(position == 8) { //RecyclerView
+
                 }
             }
         });
