@@ -32,6 +32,7 @@
         <activity android:name=".CoordinatorSimpleActivity"/>
         <activity android:name=".BehaviorActivity"/>
         <activity android:name=".Behavior2Activity"/>
+        <activity android:name=".NotificationActivity"/>
     </application>
 
 </manifest>

@@ -5,4 +5,5 @@
     <string name="animation_view_name">揭露效果view</string>
     <string name="shared_elements">SharedElements</string>
     <string name="swipe_refresh_activity">SwipeRefresh</string>
+    <string name="notification_activity">Notification</string>
 </resources>

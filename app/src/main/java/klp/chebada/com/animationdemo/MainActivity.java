@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 "CoordinatorLayout & Toolbar Simple",
                 "自定义 Behavior 嵌套滚动",
                 "自定义 Behavior2 View之间的依赖",
-                "RecyclerView"
+                "RecyclerView",
+                "Notification"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -87,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
                     Behavior2Activity.startActivity(MainActivity.this);
                 }
                 if(position == 8) { //RecyclerView
-
+                    // TODO: 2016/4/24
+                }
+                if(position == 9) {//Notification
+                    NotificationActivity.startActivity(MainActivity.this);
                 }
             }
         });
