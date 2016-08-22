@@ -7,6 +7,7 @@
     <include layout="@layout/view_toolbar"/>
 
     <Button
+        android:id="@+id/btn"
     android:theme="@style/SpecialButton"
     android:layout_width="match_parent"
     android:layout_height="200dp"

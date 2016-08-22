@@ -33,6 +33,7 @@
         <activity android:name=".BehaviorActivity"/>
         <activity android:name=".Behavior2Activity"/>
         <activity android:name=".NotificationActivity"/>
+        <activity android:name=".MessageActivity"/>
     </application>
 
 </manifest>

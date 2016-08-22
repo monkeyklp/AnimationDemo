@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 "自定义 Behavior 嵌套滚动",
                 "自定义 Behavior2 View之间的依赖",
                 "RecyclerView",
-                "Notification"
+                "Notification",
+                "Handler(消息机制)"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -92,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 9) {//Notification
                     NotificationActivity.startActivity(MainActivity.this);
+                }
+                if(position == 10) { //Handler(消息机制)
+                    MessageActivity.startActivity(MainActivity.this);
                 }
             }
         });
