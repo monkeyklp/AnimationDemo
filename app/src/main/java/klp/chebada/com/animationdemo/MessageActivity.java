@@ -29,9 +29,16 @@ public class MessageActivity extends AppCompatActivity {
     private ActivityMessageBinding mBinding;
     private Handler workHandler;
 
+    final MainHandler handler = new MainHandler();
     public static void startActivity(Activity fromActivity) {
         Intent intent = new Intent(fromActivity, MessageActivity.class);
         fromActivity.startActivity(intent);
+    }
+    class MainHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
     }
 
     @Override
@@ -41,17 +48,19 @@ public class MessageActivity extends AppCompatActivity {
         mBinding.btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                            Toast.makeText(MessageActivity.this, "Handler线程id"+ Thread.currentThread().getId(), Toast.LENGTH_SHORT).show();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                Toast.makeText(MessageActivity.this, "Handler线程id"+ Thread.currentThread().getId(), Toast.LENGTH_SHORT).show();
+                handler.sendEmptyMessageAtTime(1, 1000);
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(1000);
+//                            Toast.makeText(MessageActivity.this, "Handler线程id"+ Thread.currentThread().getId(), Toast.LENGTH_SHORT).show();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
             }
         });
 
