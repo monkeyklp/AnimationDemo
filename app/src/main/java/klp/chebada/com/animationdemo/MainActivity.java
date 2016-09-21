@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 "自定义 Behavior2 View之间的依赖",
                 "RecyclerView",
                 "Notification",
-                "Handler(消息机制)"
+                "Handler(消息机制)",
+                "自定义的进度条"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -96,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 10) { //Handler(消息机制)
                     MessageActivity.startActivity(MainActivity.this);
+                }
+                if(position == 11) { //自定义进度条
+                    CustomProgressActivity.startActivity(MainActivity.this);
                 }
             }
         });
