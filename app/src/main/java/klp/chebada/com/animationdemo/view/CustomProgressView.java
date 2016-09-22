@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import klp.chebada.com.animationdemo.util.UiUtil;
@@ -22,10 +21,9 @@ public class CustomProgressView extends View {
     private Paint mGreenPaint;
     private Paint mBluePaint;
     private int mUpSpace = UiUtil.dipToPx(getContext(), 10);
-    private int mDownSpace = UiUtil.dipToPx(getContext(), 15);
     private int mRectWidth = UiUtil.dipToPx(getContext(), 10);
-    int count = 0;
-    int i = 0;
+    private int count = 0;
+    private int i = 0;
 
     public int mProgress;
 
@@ -62,7 +60,6 @@ public class CustomProgressView extends View {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "count的值"+ count);
                 while (true) {
                     i ++;
                     postInvalidate();
@@ -98,6 +95,6 @@ public class CustomProgressView extends View {
                 canvas.drawRect(j * mUpSpace + j * mRectWidth, 0,(j + 1) *  mRectWidth + j * mRectWidth, mHeight, mGreenPaint);
             }
         }
-        count = (mWidth * mProgress / 100 ) / mUpSpace / 2 + 1;
+        count = (mWidth * mProgress / 100 ) / mUpSpace / 2 ;
     }
 }

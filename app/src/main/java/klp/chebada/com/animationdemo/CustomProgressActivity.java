@@ -27,7 +27,7 @@ public class CustomProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_progress);
         mProgressView = (CustomProgressView)findViewById(R.id.progress);
-        mProgressView.setProgress(10);
+//        mProgressView.setProgress(10);
         mSeekBar = (SeekBar)findViewById(R.id.seekBar);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -45,5 +45,6 @@ public class CustomProgressActivity extends AppCompatActivity {
 
             }
         });
+        mSeekBar.setProgress(10);
     }
 }
