@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +45,17 @@ public class MainActivity extends AppCompatActivity {
         String items[] = new String[]{
                 "普通view的水波纹效果",
                 "button的水波纹效果",
-                "揭露效果"
+                "揭露效果",
+                "Shared Elements",
+                "SwipeRefreshActivity",
+                "CoordinatorLayout & Toolbar Simple",
+                "自定义 Behavior 嵌套滚动",
+                "自定义 Behavior2 View之间的依赖",
+                "RecyclerView",
+                "Notification",
+                "Handler(消息机制)",
+                "自定义的进度条",
+                "可移动view（方案一）"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -66,15 +75,45 @@ public class MainActivity extends AppCompatActivity {
                 if(position == 2) {//揭露效果
                     AnimationViewActivity.startActivity(MainActivity.this);
                 }
+                if(position == 3) { //share
+                    SharedElementsActivity.startActivity(MainActivity.this);
+                }
+                if(position == 4) { //SwipeRefreshLayout
+                    SwipeRefreshActivity.startActivity(MainActivity.this);
+                }
+                if(position == 5) {//CoordinatorLayout & Toolbar
+                    CoordinatorSimpleActivity.startActivity(MainActivity.this);
+                }
+                if(position == 6) {//自定义Behavior
+                    BehaviorActivity.startActivity(MainActivity.this);
+                }
+                if(position == 7) {//自定义Behavior2
+                    Behavior2Activity.startActivity(MainActivity.this);
+                }
+                if(position == 8) { //RecyclerView
+                    // TODO: 2016/4/24
+                }
+                if(position == 9) {//Notification
+                    NotificationActivity.startActivity(MainActivity.this);
+                }
+                if(position == 10) { //Handler(消息机制)
+                    MessageActivity.startActivity(MainActivity.this);
+                }
+                if(position == 11) { //自定义进度条
+                    CustomProgressActivity.startActivity(MainActivity.this);
+                }
+                if(position == 12) { //可移动view实现方案一
+                    MoveAbleActivity.startActivity(MainActivity.this);
+                }
             }
         });
 
-        Explode explode = new Explode();
-        explode.setDuration(500);
-        // 进入时的跳转动画
-        getWindow().setEnterTransition(explode);
-        // 返回时的跳转动画
-        getWindow().setReturnTransition(explode);
+//        Explode explode = new Explode();
+//        explode.setDuration(500);
+//        // 进入时的跳转动画
+//        getWindow().setEnterTransition(explode);
+//        // 返回时的跳转动画
+//        getWindow().setReturnTransition(explode);
     }
 
 
