@@ -105,10 +105,14 @@ public class MoveBall2 extends View {
     }
 
 
+    public void destroy() {
+        mWindowManager.removeView(this);
+    }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         switch (event.getAction()) {
             case ACTION_MOVE:
                 currentX = event.getRawX();
@@ -122,9 +126,6 @@ public class MoveBall2 extends View {
             case ACTION_DOWN :
                 mStartX = event.getRawX();
                 mStartY = event.getRawY();
-                break;
-            case ACTION_UP:
-
                 break;
             default:
                 break;
