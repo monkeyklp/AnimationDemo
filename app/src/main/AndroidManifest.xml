@@ -36,6 +36,7 @@
         <activity android:name=".MessageActivity"/>
         <activity android:name=".CustomProgressActivity"/>
         <activity android:name=".MoveAbleActivity"/>
+        <activity android:name=".MoveAbleActivity2"/>
     </application>
 
 </manifest>
