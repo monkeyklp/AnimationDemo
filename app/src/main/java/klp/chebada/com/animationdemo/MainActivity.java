@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 "RecyclerView",
                 "Notification",
                 "Handler(消息机制)",
-                "自定义的进度条"
+                "自定义的进度条",
+                "可移动view（方案一）"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 11) { //自定义进度条
                     CustomProgressActivity.startActivity(MainActivity.this);
+                }
+                if(position == 12) { //可移动view实现方案一
+                    MoveAbleActivity.startActivity(MainActivity.this);
                 }
             }
         });
