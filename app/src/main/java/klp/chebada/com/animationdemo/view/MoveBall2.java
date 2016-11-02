@@ -113,19 +113,18 @@ public class MoveBall2 extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
+
         switch (event.getAction()) {
             case ACTION_MOVE:
-                currentX = event.getRawX();
-                currentY = event.getRawY();
-                mLayoutParams.x += (int)currentX - mStartX;
-                mLayoutParams.y += (int)currentY - mStartY;
+                int x = (int) event.getRawX();
+                int y = (int) event.getRawY();
+                mLayoutParams.x = (int)(x - mStartX);
+                mLayoutParams.y = (int)(y - mStartY);
                 mWindowManager.updateViewLayout(this, mLayoutParams);
-                mStartX = currentX;
-                mStartY = currentY;
                 break;
             case ACTION_DOWN :
-                mStartX = event.getRawX();
-                mStartY = event.getRawY();
+                mStartX = event.getX();
+                mStartY = event.getY();
                 break;
             default:
                 break;
