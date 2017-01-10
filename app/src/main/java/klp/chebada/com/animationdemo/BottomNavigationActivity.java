@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import klp.chebada.com.animationdemo.databinding.ActivityBottomNavigationBinding;
 
@@ -28,5 +30,25 @@ public class BottomNavigationActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(BottomNavigationActivity.this, R.layout.activity_bottom_navigation);
+        mBinding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.favorites:
+                        mBinding.text.setText("favorites");
+                        break;
+                    case R.id.recents:
+                        mBinding.text.setText("recents");
+                        break;
+                    case R.id.nearby:
+                        mBinding.text.setText("nearby");
+                        break;
+                    case R.id.mine:
+                        mBinding.text.setText("mine");
+                        break;
+                }
+                return true;
+            }
+        });
     }
 }

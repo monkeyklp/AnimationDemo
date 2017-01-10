@@ -7,10 +7,14 @@
     <item
         android:id="@+id/favorites"
         android:title="Favorites"
-        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+        android:icon="@mipmap/ic_tab_bar_city_channel_normal"/>
     <item
         android:id="@+id/nearby"
         android:title="Nearby"
+        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+    <item
+        android:id="@+id/mine"
+        android:title="mine"
         android:icon="@mipmap/ic_tab_bar_bus_normal"/>
 </menu>
 
