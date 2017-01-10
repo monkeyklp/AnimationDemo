@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/recents"
+        android:title="Recents"
+        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+    <item
+        android:id="@+id/favorites"
+        android:title="Favorites"
+        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+    <item
+        android:id="@+id/nearby"
+        android:title="Nearby"
+        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+</menu>
+

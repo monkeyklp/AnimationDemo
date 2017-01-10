@@ -37,6 +37,7 @@
         <activity android:name=".CustomProgressActivity"/>
         <activity android:name=".MoveAbleActivity"/>
         <activity android:name=".MoveAbleActivity2"/>
+        <activity android:name=".BottomNavigationActivity"/>
     </application>
 
 </manifest>

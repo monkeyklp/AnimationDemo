@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView mTv;
@@ -57,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 "Handler(消息机制)",
                 "自定义的进度条",
                 "可移动view（方案一）",
-                "可移动view（方案二）"
+                "可移动view（方案二）",
+                "Bottom navigation"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -109,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 13) { //可移动view实现方案二
                     MoveAbleActivity2.startActivity(MainActivity.this);
+                }
+                if(position == 14) { //bottom_navigation
+                    BottomNavigationActivity.startActivity(MainActivity.this);
                 }
             }
         });
