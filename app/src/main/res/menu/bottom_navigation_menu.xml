@@ -3,18 +3,18 @@
     <item
         android:id="@+id/recents"
         android:title="最近"
-        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+        android:icon="@mipmap/icon_homepage_home_rest"/>
     <item
         android:id="@+id/favorites"
         android:title="Favorites"
-        android:icon="@mipmap/ic_tab_bar_city_channel_normal"/>
+        android:icon="@mipmap/icon_citychannel_home_rest"/>
     <item
         android:id="@+id/nearby"
         android:title="Nearby"
-        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+        android:icon="@mipmap/icon_orderlist_home_rest"/>
     <item
         android:id="@+id/mine"
         android:title="mine"
-        android:icon="@mipmap/ic_tab_bar_bus_normal"/>
+        android:icon="@mipmap/icon_usercenter_home_rest"/>
 </menu>
 

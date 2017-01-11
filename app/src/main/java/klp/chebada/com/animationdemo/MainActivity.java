@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 "自定义的进度条",
                 "可移动view（方案一）",
                 "可移动view（方案二）",
-                "Bottom navigation"
+                "Bottom navigation",
+                "appcompat dialog"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 14) { //bottom_navigation
                     BottomNavigationActivity.startActivity(MainActivity.this);
+                }
+                if(position == 15) {//appcompat dialog
+
                 }
             }
         });
