@@ -70,4 +70,9 @@
         <item name="android:listChoiceIndicatorSingle">@drawable/selector_radio_button</item>-->
     </style>
 
+    <style name="myCheckBox" parent="AlertDialog.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/holo_blue_light</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
 </resources>
