@@ -40,6 +40,7 @@
         <activity android:name=".BottomNavigationActivity"/>
         <activity android:name=".AppcompatDialogActivity"/>
         <activity android:name=".CheckBoxActivity"/>
+        <activity android:name=".RecyclerViewActivity"/>
     </application>
 
 </manifest>

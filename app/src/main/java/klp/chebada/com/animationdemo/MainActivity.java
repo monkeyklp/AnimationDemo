@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     Behavior2Activity.startActivity(MainActivity.this);
                 }
                 if(position == 8) { //RecyclerView
-                    // TODO: 2016/4/24
+                    RecyclerViewActivity.startActivity(MainActivity.this);
                 }
                 if(position == 9) {//Notification
                     NotificationActivity.startActivity(MainActivity.this);
