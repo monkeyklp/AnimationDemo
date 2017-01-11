@@ -6,4 +6,6 @@
     <string name="shared_elements">SharedElements</string>
     <string name="swipe_refresh_activity">SwipeRefresh</string>
     <string name="notification_activity">Notification</string>
+    <string name="dialog_title">dialog_title</string>
+    <string name="dialog_message">dialog_message_dialog_message_dialog_message_dialog_message</string>
 </resources>

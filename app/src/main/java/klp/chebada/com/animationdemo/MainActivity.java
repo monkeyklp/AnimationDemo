@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     BottomNavigationActivity.startActivity(MainActivity.this);
                 }
                 if(position == 15) {//appcompat dialog
-
+                    AppcompatDialogActivity.startActivity(MainActivity.this);
                 }
             }
         });

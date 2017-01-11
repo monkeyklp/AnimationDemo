@@ -4,10 +4,19 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="点击"/>
+            android:text="普通dialog"/>
+
+        <Button
+            android:id="@+id/button_special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/button_normal"
+            android:layout_marginTop="20dp"
+            android:text="普通dialog"/>
     </RelativeLayout>
 </layout>
