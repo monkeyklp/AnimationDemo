@@ -75,4 +75,15 @@
         <item name="colorControlActivated">@android:color/black</item>
     </style>
 
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@android:color/holo_blue_bright</item>
+
+        <!-- inactive thumb color 圆点的颜色-->
+        <item name="colorSwitchThumbNormal">@android:color/white</item>
+
+        <!-- inactive track color (30% transparency) 轨道的颜色-->
+        <item name="android:colorForeground">@color/blue</item>
+    </style>
+
 </resources>

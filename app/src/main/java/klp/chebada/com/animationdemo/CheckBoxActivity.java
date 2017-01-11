@@ -33,5 +33,8 @@ public class CheckBoxActivity extends AppCompatActivity {
                 mBinding.checkbox.setEnabled(mBinding.checkbox.isEnabled() ? false : true);
             }
         });
+
+        mBinding.switchCompat.setTextOff("off");
+        mBinding.switchCompat.setTextOn("on");
     }
 }
