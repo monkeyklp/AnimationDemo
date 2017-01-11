@@ -65,7 +65,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <!--dialog background-->
         <item name="android:windowBackground">@drawable/background_dialog</item>
-
+        <!--单选和多选的图片 -->
       <!--  <item name="android:listChoiceIndicatorMultiple">@drawable/selector_checkbox</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/selector_radio_button</item>-->
     </style>
