@@ -9,23 +9,23 @@
     tools:context="klp.chebada.com.animationdemo.MainActivity"
     tools:showIn="@layout/activity_main">
 
- <!--<TextView-->
-     <!--android:id="@+id/tv"-->
-     <!--android:layout_centerInParent="true"-->
-     <!--android:layout_width="100dp"-->
-     <!--android:layout_height="50dp"-->
-     <!--android:text="测试点解效果"-->
-     <!--android:gravity="center"-->
-     <!--android:textColor="@android:color/black"-->
-     <!--android:background="?attr/selectableItemBackground"-->
-     <!--android:clickable="true"-->
-     <!--/>-->
+ <TextView
+     android:id="@+id/tv"
+     android:layout_centerInParent="true"
+     android:layout_width="100dp"
+     android:layout_height="50dp"
+     android:text="测试点解效果"
+     android:gravity="center"
+     android:textColor="@android:color/black"
+     android:background="?attr/selectableItemBackground"
+     android:clickable="true"
+     />
 
-    <!--<ListView-->
-        <!--android:id="@+id/listview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-    <!--</ListView>-->
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
     <Button
         android:theme="@style/SpecialButton"
