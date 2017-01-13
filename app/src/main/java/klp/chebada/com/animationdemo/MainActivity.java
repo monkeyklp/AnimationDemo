@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 "可移动view（方案二）",
                 "Bottom navigation",
                 "appcompat dialog",
-                "checkBox"
+                "checkBox",
+                "behavior dependsOn"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -120,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 16) {// checkbox
                     CheckBoxActivity.startActivity(MainActivity.this);
+                }
+                if(position == 17) { //behavior layoutDependsOn
+                    BehaviorLayoutDependsOnActivity.startActivity(MainActivity.this);
                 }
             }
         });

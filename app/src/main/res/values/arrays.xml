@@ -5,4 +5,9 @@
         <item>second</item>
         <item>third</item>
     </array>
+
+    <declare-styleable name="Follow">
+        <attr name="target" format="reference"/>
+    </declare-styleable>
+
 </resources>

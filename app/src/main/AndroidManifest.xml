@@ -41,6 +41,7 @@
         <activity android:name=".AppcompatDialogActivity"/>
         <activity android:name=".CheckBoxActivity"/>
         <activity android:name=".RecyclerViewActivity"/>
+        <activity android:name=".BehaviorLayoutDependsOnActivity"/>
     </application>
 
 </manifest>

@@ -31,24 +31,23 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
         return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
-//    //2.根据滑动的距离显示和隐藏footer view
-//    @Override
-//    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-//        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
-//            child.animate().cancel();
-//            sinceDirectionChange = 0;
-//        }
-//        sinceDirectionChange += dy;
-//        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
-//            hide(child);
-//        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
-//            show(child);
-//        }
-//    }
+    //2.根据滑动的距离显示和隐藏footer view
+    @Override
+    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+        if (dy > 0 && sinceDirectionChange < 0 || dy < 0 && sinceDirectionChange > 0) {
+            child.animate().cancel();
+            sinceDirectionChange = 0;
+        }
+        sinceDirectionChange += dy;
+        if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
+            hide(child);
+        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.GONE) {
+            show(child);
+        }
+    }
 
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
             // User scrolled down and the FAB is currently visible -> hide the FAB
             hide(child);
