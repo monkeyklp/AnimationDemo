@@ -4,13 +4,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
 
 /**
  * Created by klp13115 on 2016/4/11.
@@ -19,11 +18,9 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
 
     private static final String TAG = "FooterBehavior";
 
-    private static final Interpolator INTERPOLATOR = new LinearInterpolator();
+    private static final Interpolator DECELERATION_INTERPOLATOR = new LinearOutSlowInInterpolator();
 
-    private static final Interpolator DECELERATION_INTERPOLATOR = new DecelerateInterpolator();
-
-    private static final Interpolator ACCELERATION_INTERPOLATOR = new AccelerateInterpolator();
+    private static final Interpolator ACCELERATION_INTERPOLATOR = new FastOutLinearInInterpolator();
 
     public FooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
