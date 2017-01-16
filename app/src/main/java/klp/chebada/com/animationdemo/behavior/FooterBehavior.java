@@ -7,6 +7,8 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -18,6 +20,10 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
     private static final String TAG = "FooterBehavior";
 
     private static final Interpolator INTERPOLATOR = new LinearInterpolator();
+
+    private static final Interpolator DECELERATION_INTERPOLATOR = new DecelerateInterpolator();
+
+    private static final Interpolator ACCELERATION_INTERPOLATOR = new AccelerateInterpolator();
 
     public FooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,7 +71,6 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
         if(valueAnimator == null) {
             valueAnimator = new ValueAnimator();
             valueAnimator.setDuration(200);
-            valueAnimator.setInterpolator(INTERPOLATOR);
             valueAnimator.setTarget(view);
             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -77,8 +82,10 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
             valueAnimator.cancel();
         }
         if(up) {
+            valueAnimator.setInterpolator(DECELERATION_INTERPOLATOR);
             valueAnimator.setFloatValues(view.getTranslationY(), 0);
         } else {
+            valueAnimator.setInterpolator(ACCELERATION_INTERPOLATOR);
             valueAnimator.setFloatValues(view.getTranslationY(), view.getHeight());
         }
         valueAnimator.start();
