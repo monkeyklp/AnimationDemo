@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 "Bottom navigation",
                 "appcompat dialog",
                 "checkBox",
-                "behavior dependsOn"
+                "behavior dependsOn",
+                "Rxjava"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 17) { //behavior layoutDependsOn
                     BehaviorLayoutDependsOnActivity.startActivity(MainActivity.this);
+                }
+                if(position == 18) { //Rxjava demo
+                    RxActivity.startActivity(MainActivity.this);
                 }
             }
         });

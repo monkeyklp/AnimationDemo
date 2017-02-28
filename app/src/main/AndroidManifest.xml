@@ -42,6 +42,7 @@
         <activity android:name=".CheckBoxActivity"/>
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".BehaviorLayoutDependsOnActivity"/>
+        <activity android:name=".RxActivity"/>
     </application>
 
 </manifest>
