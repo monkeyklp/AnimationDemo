@@ -1,4 +1,4 @@
-package klp.chebada.com.animationdemo;
+package klp.chebada.com.animationdemo.Rx;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import klp.chebada.com.animationdemo.R;
 import klp.chebada.com.animationdemo.databinding.ActivityRxBinding;
 
 /**
