@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -44,7 +43,7 @@ public class RxActivity extends AppCompatActivity {
                 Observable.defer(new Callable<ObservableSource<? extends String>>() {
                     @Override
                     public ObservableSource<? extends String> call() throws Exception {
-                        SystemClock.sleep(500);
+
                         return Observable.just("test1", "test2", "test3");
                     }
                 })
