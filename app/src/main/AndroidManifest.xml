@@ -43,6 +43,7 @@
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".BehaviorLayoutDependsOnActivity"/>
         <activity android:name=".Rx.RxActivity"/>
+        <activity android:name=".NestedScrollActivity"/>
     </application>
 
 </manifest>

@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 "appcompat dialog",
                 "checkBox",
                 "behavior dependsOn",
-                "Rxjava"
+                "Rxjava",
+                "nestedscrollview"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -130,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 18) { //Rxjava demo
                     RxActivity.startActivity(MainActivity.this);
+                }
+                if(position == 19) { //nestedscrollview
+                    NestedScrollActivity.startActivity(MainActivity.this);
                 }
             }
         });
