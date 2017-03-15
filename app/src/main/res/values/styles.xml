@@ -13,6 +13,11 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="AppTheme.NestedScroll" parent="AppTheme">
+        <item name="nestedScroll">true</item>
+        <item name="windowToolbar">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

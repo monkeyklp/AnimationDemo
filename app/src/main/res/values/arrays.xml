@@ -10,4 +10,10 @@
         <attr name="target" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="app">
+        <attr name="windowToolbar" format="boolean"/>
+        <attr name="toolbarBackgroundColor" format="color"/>
+        <attr name="nestedScroll" format="boolean"/>
+    </declare-styleable>
+
 </resources>
