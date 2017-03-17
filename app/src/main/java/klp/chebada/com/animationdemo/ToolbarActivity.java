@@ -5,15 +5,20 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
+import klp.chebada.com.animationdemo.behavior.FooterBehaviorDependAppBar;
 
 import static klp.chebada.com.animationdemo.R.id.toolbar;
 
@@ -109,7 +114,28 @@ public class ToolbarActivity extends AppCompatActivity {
                 AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
                 params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
                         | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                mRootLayout.addView(contentView);
+                LinearLayout wrapLayout = (LinearLayout)contentView;
+                int childCount = wrapLayout.getChildCount();
+                View wantView1 = wrapLayout.getChildAt(0);
+                View wantView2 = wrapLayout.getChildAt(1);
+
+                CoordinatorLayout.LayoutParams coorParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                coorParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+                wantView1.setLayoutParams(coorParams);
+                CoordinatorLayout.LayoutParams coor2Params = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                coor2Params.setBehavior(new FooterBehaviorDependAppBar());
+                coor2Params.gravity = Gravity.BOTTOM;
+                wantView2.setLayoutParams(coor2Params);
+//                wantView2.setForegroundGravity(Gravity.BOTTOM);
+                wrapLayout.removeAllViews();
+
+//                for(int i = 0; i < childCount; i ++) {
+//                    View wantView = wrapLayout.getChildAt(i);
+//                    wrapLayout.removeViewAt(i);
+//                    mRootLayout.addView(wantView);
+//                }
+                mRootLayout.addView(wantView1);
+                mRootLayout.addView(wantView2);
             } else { //不需要嵌套滑动
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
                 params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);

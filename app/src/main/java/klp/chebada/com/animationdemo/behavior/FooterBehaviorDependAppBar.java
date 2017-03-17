@@ -15,6 +15,10 @@ public class FooterBehaviorDependAppBar extends CoordinatorLayout.Behavior {
         super(context, attrs);
     }
 
+    public FooterBehaviorDependAppBar() {
+        super();
+    }
+
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
         return dependency instanceof AppBarLayout;
