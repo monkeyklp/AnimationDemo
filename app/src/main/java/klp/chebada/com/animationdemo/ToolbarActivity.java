@@ -16,11 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import klp.chebada.com.animationdemo.behavior.FooterBehaviorDependAppBar;
-
-import static klp.chebada.com.animationdemo.R.id.toolbar;
 
 /**
  * Created by monkey on 17/3/15.
@@ -102,40 +99,54 @@ public class ToolbarActivity extends AppCompatActivity {
             return mToolbar;
         }
 
+        /**
+         *
+         * @param contentView 子类里的布局
+         */
         public ToolbarHelper(View contentView) {
             Context context = ToolbarActivity.this;
             mRootLayout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.layout_toolbar, null);
-            mToolbar = (Toolbar) mRootLayout.findViewById(toolbar);
+            mToolbar = (Toolbar) mRootLayout.findViewById(R.id.toolbar);
             mToolbar.setNavigationIcon(R.mipmap.arrow_navi_back);
             int toolbarBgColor = getToolbarBackgroundColor();
             mToolbar.setBackgroundColor(toolbarBgColor);
 
             if(needNestedScroll()){
+                //toolBar设置
                 AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
                 params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
                         | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
-                LinearLayout wrapLayout = (LinearLayout)contentView;
+                mToolbar.setLayoutParams(params);
+                //
+
+                ViewGroup wrapLayout = (ViewGroup)contentView;
                 int childCount = wrapLayout.getChildCount();
-                View wantView1 = wrapLayout.getChildAt(0);
-                View wantView2 = wrapLayout.getChildAt(1);
+                if(childCount > 0) {
+                    View nestedContentView = wrapLayout.findViewById(R.id.nested_content);
+                    View footerView = wrapLayout.findViewById(R.id.nested_footer);
+                    View otherView = wrapLayout.findViewById(R.id.nested_other);
 
-                CoordinatorLayout.LayoutParams coorParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                coorParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-                wantView1.setLayoutParams(coorParams);
-                CoordinatorLayout.LayoutParams coor2Params = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                coor2Params.setBehavior(new FooterBehaviorDependAppBar());
-                coor2Params.gravity = Gravity.BOTTOM;
-                wantView2.setLayoutParams(coor2Params);
-//                wantView2.setForegroundGravity(Gravity.BOTTOM);
-                wrapLayout.removeAllViews();
+                    wrapLayout.removeAllViews();
+                    if(null != otherView) {
+                        AppBarLayout appBarLayout = (AppBarLayout)mRootLayout.findViewById(R.id.toolbar_layout);
+                        appBarLayout.addView(otherView);
+                    }
+                    if(null != nestedContentView) {
+                        CoordinatorLayout.LayoutParams nestedContentParams = new CoordinatorLayout.LayoutParams(nestedContentView.getLayoutParams().width, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        nestedContentParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+                        nestedContentView.setLayoutParams(nestedContentParams);
+                        mRootLayout.addView(nestedContentView);
+                    }
+                    if(null != footerView) {
+                        CoordinatorLayout.LayoutParams footerParams = new CoordinatorLayout.LayoutParams(footerView.getLayoutParams().width, footerView.getLayoutParams().height);
+                        footerParams.setBehavior(new FooterBehaviorDependAppBar());
+                        footerParams.gravity = Gravity.BOTTOM;
+                        footerView.setLayoutParams(footerParams);
+                        mRootLayout.addView(footerView);
+                    }
 
-//                for(int i = 0; i < childCount; i ++) {
-//                    View wantView = wrapLayout.getChildAt(i);
-//                    wrapLayout.removeViewAt(i);
-//                    mRootLayout.addView(wantView);
-//                }
-                mRootLayout.addView(wantView1);
-                mRootLayout.addView(wantView2);
+
+                }
             } else { //不需要嵌套滑动
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
                 params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);

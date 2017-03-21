@@ -4,24 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    
+    <!--<LinearLayout-->
+        <!--android:id="@id/nested_other"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@android:color/holo_green_dark">-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="@android:color/background_dark">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/app_name"
-            android:textColor="@android:color/holo_green_dark"
-            android:gravity="center"/>
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/rv_behavior"
+        android:id="@id/nested_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -86,18 +82,19 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="@android:color/background_dark">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/action_settings"
-            android:textColor="@android:color/holo_green_dark"
-            android:gravity="center"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@id/nested_footer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="@android:color/background_dark">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/action_settings"-->
+            <!--android:textColor="@android:color/holo_green_dark"-->
+            <!--android:gravity="center"/>-->
+    <!--</LinearLayout>-->
 </LinearLayout>
 
 

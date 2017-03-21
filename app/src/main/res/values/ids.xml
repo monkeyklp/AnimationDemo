@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>>
+    <item type="id" name="nested_content"/>
+    <item type="id" name="nested_other"/>
+    <item type="id" name="nested_footer"/>
+</resources>
