@@ -1,6 +1,7 @@
 package klp.chebada.com.animationdemo.view;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -37,7 +38,7 @@ public class CustomSwipeRefresh extends SwipeRefreshLayout {
         int mCount = getChildCount();
         for(int i = 0; i <mCount; i++) {
             View childView = getChildAt(i);
-            if(childView instanceof RecyclerView) {
+            if(childView instanceof RecyclerView || childView instanceof NestedScrollView) {
                 childView.measure(MeasureSpec.makeMeasureSpec(
                         getMeasuredWidth() - getPaddingLeft() - getPaddingRight(),
                         MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(
