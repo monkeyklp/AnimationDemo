@@ -138,7 +138,7 @@ public class ToolbarActivity extends AppCompatActivity {
                         mRootLayout.addView(nestedContentView);
                     }
                     if(null != footerView) {
-                        CoordinatorLayout.LayoutParams footerParams = new CoordinatorLayout.LayoutParams(footerView.getLayoutParams().width, footerView.getLayoutParams().height);
+                        CoordinatorLayout.LayoutParams footerParams = new CoordinatorLayout.LayoutParams(footerView.getLayoutParams().width, context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material));
                         footerParams.setBehavior(new FooterBehaviorDependAppBar());
                         footerParams.gravity = Gravity.BOTTOM;
                         footerView.setLayoutParams(footerParams);

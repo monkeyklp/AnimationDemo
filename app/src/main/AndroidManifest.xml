@@ -28,7 +28,8 @@
         <activity android:name=".SharedElementsActivity">
         </activity>
         <activity android:name=".SwipeRefreshActivity"
-            android:label="@string/swipe_refresh_activity"/>
+            android:label="@string/swipe_refresh_activity"
+            android:theme="@style/AppTheme.NestedScroll"/>
         <activity android:name=".CoordinatorSimpleActivity"/>
         <activity android:name=".BehaviorActivity"/>
         <activity android:name=".Behavior2Activity"/>

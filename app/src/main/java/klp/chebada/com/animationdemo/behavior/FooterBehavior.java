@@ -22,6 +22,8 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
 
     private static final Interpolator ACCELERATION_INTERPOLATOR = new FastOutLinearInInterpolator();
 
+    public FooterBehavior() {}
+
     public FooterBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -45,6 +47,20 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
         Log.e(TAG, "onNestedPreScroll--------dy " + dy);
         Log.e(TAG, "onNestedPreScroll--------consumed " + consumed[1]);
+//        if(dy != 0 ) {
+//            int min, max;
+//            if (dy < 0) {
+//                // We're scrolling down
+//                min = -child.getTotalScrollRange();
+//                max = min + child.getDownNestedPreScrollRange();
+//            } else {
+//                // We're scrolling up
+//                min = -child.getUpNestedPreScrollRange();
+//                max = 0;
+//            }
+//            consumed[1] = scroll(coordinatorLayout, child, dy, min, max);
+//        }
+
     }
 
     @Override
@@ -63,11 +79,18 @@ public class FooterBehavior extends CoordinatorLayout.Behavior {
             animator(child, true);
      }
     }
+
+    @Override
+    public boolean onNestedFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY, boolean consumed) {
+        Log.e(TAG, "onNestedFling--------velocityY " + velocityY);
+        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+    }
+
     private void animator(final View view, boolean up) {
 
         if(valueAnimator == null) {
             valueAnimator = new ValueAnimator();
-            valueAnimator.setDuration(200);
+            valueAnimator.setDuration(150);
             valueAnimator.setTarget(view);
             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override

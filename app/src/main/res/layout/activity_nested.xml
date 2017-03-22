@@ -82,19 +82,19 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <!--<LinearLayout-->
-        <!--android:id="@id/nested_footer"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@android:color/background_dark">-->
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="@string/action_settings"-->
-            <!--android:textColor="@android:color/holo_green_dark"-->
-            <!--android:gravity="center"/>-->
-    <!--</LinearLayout>-->
+    <LinearLayout
+        android:id="@id/nested_footer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@android:color/background_dark">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/action_settings"
+            android:textColor="@android:color/holo_green_dark"
+            android:gravity="center"/>
+    </LinearLayout>
 </LinearLayout>
 
 
