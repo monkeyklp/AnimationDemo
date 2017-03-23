@@ -115,7 +115,7 @@ public class ToolbarActivity extends AppCompatActivity {
                 //toolBar设置
                 AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
                 params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                        | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+                        | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS| AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
                 mToolbar.setLayoutParams(params);
                 //
 
