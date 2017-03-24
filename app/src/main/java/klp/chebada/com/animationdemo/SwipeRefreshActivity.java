@@ -28,7 +28,7 @@ public class SwipeRefreshActivity extends ToolbarActivity {
     private RecyclerView mRecyclerView;
     private CustomSwipeRefresh mSwipeLayout;
 
-    private static final int LIST_ITEM_COUNT =20;
+    private static final int LIST_ITEM_COUNT =5;
     private Adapter mListAdapter;
 
     public static void  startActivity(Activity fromActivity) {

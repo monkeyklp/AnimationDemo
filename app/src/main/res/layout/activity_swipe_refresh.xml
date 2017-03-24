@@ -21,7 +21,7 @@
     </klp.chebada.com.animationdemo.view.CustomSwipeRefresh>
 
     <LinearLayout
-        android:id="@id/nested_footer"
+        android:id="@id/nested_footer_pin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@android:color/background_dark"

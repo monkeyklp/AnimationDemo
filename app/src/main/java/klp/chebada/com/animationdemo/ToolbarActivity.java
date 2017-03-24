@@ -90,6 +90,7 @@ public class ToolbarActivity extends AppCompatActivity {
     private class ToolbarHelper {
         private ViewGroup mRootLayout;
         private Toolbar mToolbar;
+        private CoordinatorLayout mCoordinatorLayout;
 
         public ViewGroup getRootLayout() {
             return mRootLayout;
@@ -106,6 +107,7 @@ public class ToolbarActivity extends AppCompatActivity {
         public ToolbarHelper(View contentView) {
             Context context = ToolbarActivity.this;
             mRootLayout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.layout_toolbar, null);
+            mCoordinatorLayout = (CoordinatorLayout)mRootLayout.findViewById(R.id.coordinator_layout);
             mToolbar = (Toolbar) mRootLayout.findViewById(R.id.toolbar);
             mToolbar.setNavigationIcon(R.mipmap.arrow_navi_back);
             int toolbarBgColor = getToolbarBackgroundColor();
@@ -136,18 +138,17 @@ public class ToolbarActivity extends AppCompatActivity {
                         CoordinatorLayout.LayoutParams nestedContentParams = new CoordinatorLayout.LayoutParams(nestedContentView.getLayoutParams().width, ViewGroup.LayoutParams.WRAP_CONTENT);
                         nestedContentParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
                         nestedContentView.setLayoutParams(nestedContentParams);
-                        mRootLayout.addView(nestedContentView);
+                        mCoordinatorLayout.addView(nestedContentView);
                     }
                     if(null != footerView) {
                         CoordinatorLayout.LayoutParams footerParams = new CoordinatorLayout.LayoutParams(footerView.getLayoutParams().width, context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material));
                         footerParams.setBehavior(new FooterBehaviorDependAppBar());
                         footerParams.gravity = Gravity.BOTTOM;
                         footerView.setLayoutParams(footerParams);
-                        mRootLayout.addView(footerView);
+                        mCoordinatorLayout.addView(footerView);
                     }
                     if(null != footerPinView) {
                         CoordinatorLayout.LayoutParams footerPinParams = new CoordinatorLayout.LayoutParams(footerPinView.getLayoutParams().width, footerPinView.getLayoutParams().height);
-                        footerPinParams.gravity = Gravity.BOTTOM;
                         footerPinView.setLayoutParams(footerPinParams);
                         mRootLayout.addView(footerPinView);
                     }
@@ -155,9 +156,7 @@ public class ToolbarActivity extends AppCompatActivity {
 
                 }
             } else { //不需要嵌套滑动
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
-                params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
-                mRootLayout.addView(contentView, params);
+                mRootLayout.addView(contentView);
             }
         }
 
