@@ -156,7 +156,9 @@ public class ToolbarActivity extends AppCompatActivity {
 
                 }
             } else { //不需要嵌套滑动
-                mRootLayout.addView(contentView);
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
+                params.topMargin = context.getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
+                mCoordinatorLayout.addView(contentView, params);
             }
         }
 
