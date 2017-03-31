@@ -27,6 +27,8 @@ public class SwipeRefreshActivity extends ToolbarActivity {
 
     private RecyclerView mRecyclerView;
     private CustomSwipeRefresh mSwipeLayout;
+    private TextView mEmptyView;
+
 
     private static final int LIST_ITEM_COUNT =5;
     private Adapter mListAdapter;
@@ -42,6 +44,7 @@ public class SwipeRefreshActivity extends ToolbarActivity {
         setContentView(R.layout.activity_swipe_refresh);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mSwipeLayout = (CustomSwipeRefresh)findViewById(R.id.nested_content);
+        mEmptyView = (TextView)findViewById(R.id.empty_view);
         initView();
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -115,7 +118,7 @@ public class SwipeRefreshActivity extends ToolbarActivity {
 
     private void onRefreshComplete(List<String> result) {
 
-        // Remove all items from the ListAdapter, and then replace them with the new items
+//         Remove all items from the ListAdapter, and then replace them with the new items
         mListAdapter.clear();
         for (String cheese : result) {
             mListAdapter.add(cheese);
@@ -124,6 +127,10 @@ public class SwipeRefreshActivity extends ToolbarActivity {
         // Stop the refreshing indicator
         mListAdapter.notifyDataSetChanged();
         mSwipeLayout.setRefreshing(false);
+
+        mEmptyView.setVisibility(View.VISIBLE);
+        mSwipeLayout.setVisibility(View.GONE);
+
     }
 
 

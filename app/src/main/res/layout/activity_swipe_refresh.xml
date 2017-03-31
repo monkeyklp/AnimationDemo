@@ -20,6 +20,14 @@
 
     </klp.chebada.com.animationdemo.view.CustomSwipeRefresh>
 
+    <TextView
+        android:id="@id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/action_settings"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@id/nested_footer_pin"
         android:layout_width="match_parent"

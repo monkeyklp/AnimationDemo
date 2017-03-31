@@ -128,6 +128,7 @@ public class ToolbarActivity extends AppCompatActivity {
                     View footerView = wrapLayout.findViewById(R.id.nested_footer);
                     View otherView = wrapLayout.findViewById(R.id.nested_other);
                     View footerPinView = wrapLayout.findViewById(R.id.nested_footer_pin);
+                    View emptyView = wrapLayout.findViewById(R.id.empty_view);
 
                     wrapLayout.removeAllViews();
                     if(null != otherView) {
@@ -146,6 +147,11 @@ public class ToolbarActivity extends AppCompatActivity {
                         footerParams.gravity = Gravity.BOTTOM;
                         footerView.setLayoutParams(footerParams);
                         mCoordinatorLayout.addView(footerView);
+                    }
+                    if(null != emptyView) {
+                        CoordinatorLayout.LayoutParams emptyViewParams = new CoordinatorLayout.LayoutParams(emptyView.getLayoutParams().width, emptyView.getLayoutParams().height);
+                        emptyView.setLayoutParams(emptyViewParams);
+                        mCoordinatorLayout.addView(emptyView);
                     }
                     if(null != footerPinView) {
                         CoordinatorLayout.LayoutParams footerPinParams = new CoordinatorLayout.LayoutParams(footerPinView.getLayoutParams().width, footerPinView.getLayoutParams().height);

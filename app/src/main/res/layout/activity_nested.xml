@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
-    <!--<LinearLayout-->
-        <!--android:id="@id/nested_other"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:orientation="vertical"-->
-        <!--android:background="@android:color/holo_green_dark">-->
-
-    <!--</LinearLayout>-->
 
     <android.support.v4.widget.NestedScrollView
         android:id="@id/nested_content"
@@ -80,6 +71,15 @@
                 android:textColor="@android:color/background_dark" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/action_settings"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@id/nested_footer_pin"

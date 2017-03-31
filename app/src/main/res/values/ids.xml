@@ -4,4 +4,5 @@
     <item type="id" name="nested_other"/>
     <item type="id" name="nested_footer"/>
     <item type="id" name="nested_footer_pin"/>
+    <item type="id" name="empty_view"/>
 </resources>
