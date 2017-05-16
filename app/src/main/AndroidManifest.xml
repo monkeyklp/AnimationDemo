@@ -9,6 +9,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="klp.chebada.com.animationdemo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path" />
+            </provider>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -47,6 +56,7 @@
         <activity android:name=".Rx.RxActivity"/>
         <activity android:name=".NestedScrollActivity"
             android:theme="@style/AppTheme.NestedScroll"/>
+        <activity android:name=".AdaptationActivity"/>
     </application>
 
 </manifest>

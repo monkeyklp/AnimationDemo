@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 "checkBox",
                 "behavior dependsOn",
                 "Rxjava",
-                "nestedscrollview"
+                "nestedscrollview",
+                "android7.0适配"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -134,6 +135,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 19) { //nestedscrollview
                     NestedScrollActivity.startActivity(MainActivity.this);
+                }
+                if(position == 20) {//android7.0适配
+                    AdaptationActivity.startActivity(MainActivity.this);
                 }
             }
         });

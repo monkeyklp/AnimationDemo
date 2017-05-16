@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <integer name="anim_duration_long">500</integer>
     <dimen name="line_height">2dp</dimen>
+    <dimen name="item_height">44dp</dimen>
 </resources>

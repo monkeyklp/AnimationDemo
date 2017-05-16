@@ -10,4 +10,5 @@
     <string name="dialog_message">dialog_message_dialog_message_dialog_message_dialog_message</string>
     <string name="rx_btn">点我</string>
     <string name="custom_nested_scroll">自定义嵌套滑动</string>
+    <string name="adaptation_activity">7.0适配</string>
 </resources>
