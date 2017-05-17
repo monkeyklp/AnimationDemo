@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="klp.chebada.com.animationdemo"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="klp.chebada.com.animationdemo"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,8 +18,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_path" />
-            </provider>
+                android:resource="@xml/file_path"/>
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -32,15 +35,18 @@
             android:name=".ButtonActivity"
             android:label="@string/button_name">
         </activity>
-        <activity android:name=".AnimationViewActivity"
-                  android:label="@string/animation_view_name"/>
+        <activity
+            android:name=".AnimationViewActivity"
+            android:label="@string/animation_view_name"/>
         <activity android:name=".SharedElementsActivity">
         </activity>
-        <activity android:name=".SwipeRefreshActivity"
+        <activity
+            android:name=".SwipeRefreshActivity"
             android:label="@string/swipe_refresh_activity"
             android:theme="@style/AppTheme.NestedScroll"/>
         <activity android:name=".CoordinatorSimpleActivity"/>
-        <activity android:name=".BehaviorActivity"
+        <activity
+            android:name=".BehaviorActivity"
             android:label="@string/custom_nested_scroll"/>
         <activity android:name=".Behavior2Activity"/>
         <activity android:name=".NotificationActivity"/>
@@ -54,9 +60,12 @@
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".BehaviorLayoutDependsOnActivity"/>
         <activity android:name=".Rx.RxActivity"/>
-        <activity android:name=".NestedScrollActivity"
+        <activity
+            android:name=".NestedScrollActivity"
             android:theme="@style/AppTheme.NestedScroll"/>
         <activity android:name=".AdaptationActivity"/>
+        <activity android:name=".CameraActivity">
+        </activity>
     </application>
 
 </manifest>

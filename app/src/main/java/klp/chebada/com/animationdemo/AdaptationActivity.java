@@ -32,7 +32,8 @@ public class AdaptationActivity extends AppCompatActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCamera();
+//                openCamera();
+                CameraActivity.startActivity(AdaptationActivity.this);
             }
         });
     }
