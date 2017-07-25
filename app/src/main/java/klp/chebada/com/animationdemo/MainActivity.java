@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 "behavior dependsOn",
                 "Rxjava",
                 "nestedscrollview",
-                "android7.0适配"
+                "android7.0适配",
+                "半圆进度条"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -138,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 20) {//android7.0适配
                     AdaptationActivity.startActivity(MainActivity.this);
+                }
+                if(position == 21) {
+                    SemicircleActivity.startActivity(MainActivity.this);
                 }
             }
         });

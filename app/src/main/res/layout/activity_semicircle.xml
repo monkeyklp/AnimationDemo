@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="klp.chebada.com.animationdemo.SemicircleActivity"
+    android:background="@color/cardview_dark_background">
+
+    <klp.chebada.com.animationdemo.view.SemicircleView
+        android:id="@+id/semicircle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        app:bgArcColor="#ffffff"
+        app:percentTextSize="16sp"
+        app:radius="100dp"
+        app:strokeWidth="11dp"
+        app:usedArcColor="#FF3D3B"
+        app:usedPercentTextSize="52sp"
+        app:usedTextSize="14sp"/>
+
+</LinearLayout>
