@@ -14,6 +14,8 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.lang.ref.WeakReference;
+
 import klp.chebada.com.animationdemo.R;
 
 /**
@@ -21,57 +23,34 @@ import klp.chebada.com.animationdemo.R;
  */
 
 public class SemicircleView extends View {
+    private static final String TAG = "SemicircleView";
 
     //背景圆弧画笔
-    private Paint mBackgroudArcPaint;
-    //已使用圆弧画笔
-    private Paint mUsedArcPaint;
-    //已使用以及流量文字画笔
-    private Paint mUsedTxtPaint;
-    //已使用百分比文字画笔
-    private Paint mUsedPercentTxtPaint;
-    //百分号画笔
-    private Paint mPercentTxtPaint;
-
-    //最外层圆弧线颜色
-    private int mLineArcColor;
-    //背景圆环颜色
-    private int mBackgroundArcColor;
-    //已使用圆弧颜色
-    private int mUsedArcColor;
+    private Paint mBackgroundArcPaint;
+    //顶部提示画笔
+    private Paint mTipsPaint;
+    //百分比文字画笔
+    private Paint mPercentPaint;
+    //实心圆画笔
+    private Paint mCirclePaint;
     //圆弧半径
     private float mArcRadius;
-    //外线大半径
-    private float mLineRadius;
+    //实心圆半径
+    private float mCircleRadius;
     //圆弧宽度
     private float mArcStrokeWidth;
-    // 圆心x坐标
-    private int mXCenter;
-    // 圆心y坐标
-    private int mYCenter;
+    //渐变开始的颜色
+    private int  mBgArcStartColor;
+    //渐变结束的颜色
+    private int mBgArcEndColor;
     //已使用百分比
-    private float mProgress=0;
+    public float mProgress=0;
+    public float mProgressBefore = 0;
     //动画展示弧度
     private float mShowProgress;
-    private Context mContext;
-    //已使用和总流量
-    private String mUserdAndAll;
-    private float mUsedTextSize;
-    private float mUsedPercentTextSize;
-    private float mPercentTextSize;
-    private float mUsedPercentTxtHeight;
-    //private CircleThread
+    private float mPercentTxtHeight;
+    private CircleHandler mCircleHandler;
 
-    private Handler circleHandler = new Handler(){
-
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if(msg.what == 1){
-                float temp = (Float)msg.obj;
-                setShowProgress(temp);
-            }
-        };
-    };
 
     public SemicircleView(Context context) {
         this(context, null);
@@ -83,174 +62,161 @@ public class SemicircleView extends View {
 
     public SemicircleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mContext = context;
         // 获取自定义的属性
         initAttrs(context, attrs);
-        initVariable();
+        mCircleHandler = new CircleHandler(this);
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typeArray = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.SemicircleView, 0, 0);
-        mLineRadius = typeArray.getDimension(R.styleable.SemicircleView_radius, 120);
         mArcStrokeWidth = typeArray.getDimension(R.styleable.SemicircleView_strokeWidth, 12);
-        mBackgroundArcColor = typeArray.getColor(R.styleable.SemicircleView_bgArcColor, 0xFFFFFFFF);
-        mUsedArcColor = typeArray.getColor(R.styleable.SemicircleView_usedArcColor, 0xFFFF3D3B);
-        mUsedTextSize = typeArray.getDimension(R.styleable.SemicircleView_usedTextSize, 14);
-        mUsedPercentTextSize = typeArray.getDimension(R.styleable.SemicircleView_usedPercentTextSize, 52);
-        mPercentTextSize = typeArray.getDimension(R.styleable.SemicircleView_percentTextSize, 16);
+        float tipsTextSize = typeArray.getDimension(R.styleable.SemicircleView_tipsTextSize, 14);
+        float percentTextSize = typeArray.getDimension(R.styleable.SemicircleView_percentTextSize, 52);
+        mArcRadius = typeArray.getDimension(R.styleable.SemicircleView_radius, 200);
+        mCircleRadius = typeArray.getDimension(R.styleable.SemicircleView_circleRadius, 20);
+        int tipsTxtColor = typeArray.getColor(R.styleable.SemicircleView_tipTxtColor, Color.WHITE);
+        int percentTxtColor = typeArray.getColor(R.styleable.SemicircleView_percentTxtColor, Color.WHITE);
+        mBgArcStartColor = typeArray.getColor(R.styleable.SemicircleView_bgArcStartColor, Color.BLUE);
+        mBgArcEndColor = typeArray.getColor(R.styleable.SemicircleView_bgArcEndColor, Color.WHITE);
         typeArray.recycle();
-    }
-
-
-    private void initVariable() {
-        //初始化一些值
-        mLineRadius = mLineRadius + mArcStrokeWidth / 2;
-        mArcRadius = mLineRadius-1.8f*mArcStrokeWidth;
-        mLineArcColor = 0x33FFFFFF;
-        mUserdAndAll = "0M/0M";
 
         //背景圆弧画笔设置
-        mBackgroudArcPaint = new Paint();
-        mBackgroudArcPaint.setAntiAlias(true);
-//        mBackgroudArcPaint.setColor(mBackgroundArcColor);
-        mBackgroudArcPaint.setStyle(Paint.Style.STROKE);
-        mBackgroudArcPaint.setStrokeWidth(mArcStrokeWidth);
-        mBackgroudArcPaint.setStrokeCap(Paint.Cap.ROUND);//开启显示边缘为圆形
+        mBackgroundArcPaint = new Paint();
+        mBackgroundArcPaint.setAntiAlias(true);
+        mBackgroundArcPaint.setStyle(Paint.Style.STROKE);
+        mBackgroundArcPaint.setStrokeWidth(mArcStrokeWidth);
+        mBackgroundArcPaint.setStrokeCap(Paint.Cap.ROUND);//开启显示边缘为圆形
 
-        //已使用多少圆环画笔设置
-        mUsedArcPaint = new Paint();
-        mUsedArcPaint.setAntiAlias(true);
-        mUsedArcPaint.setColor(mUsedArcColor);
-        mUsedArcPaint.setStyle(Paint.Style.STROKE);
-        mUsedArcPaint.setStrokeWidth(mArcStrokeWidth);
-        mUsedArcPaint.setStrokeCap(Paint.Cap.ROUND);//开启显示边缘为圆形
-
-        mUsedTxtPaint  = new Paint();
-        mUsedTxtPaint.setAntiAlias(true);
-        mUsedTxtPaint.setStyle(Paint.Style.FILL);
-        mUsedTxtPaint.setColor(0x80FFFFFF);
-        mUsedTxtPaint.setTextSize(mUsedTextSize);
+        mTipsPaint = new Paint();
+        mTipsPaint.setAntiAlias(true);
+        mTipsPaint.setStyle(Paint.Style.FILL);
+        mTipsPaint.setColor(tipsTxtColor);
+        mTipsPaint.setTextSize(tipsTextSize);
 
         //百分比数字画笔
-        mUsedPercentTxtPaint  = new Paint();
-        mUsedPercentTxtPaint.setAntiAlias(true);
-        mUsedPercentTxtPaint.setStyle(Paint.Style.FILL);
-        mUsedPercentTxtPaint.setColor(0xFFFFFFFF);
-        mUsedPercentTxtPaint.setTextSize(mUsedPercentTextSize);
-        //百分号画笔
-        mPercentTxtPaint  = new Paint();
-        mPercentTxtPaint.setAntiAlias(true);
-        mPercentTxtPaint.setStyle(Paint.Style.FILL);
-        mPercentTxtPaint.setColor(0xFFFFFFFF);
-        mPercentTxtPaint.setTextSize(mPercentTextSize);
+        mPercentPaint = new Paint();
+        mPercentPaint.setAntiAlias(true);
+        mPercentPaint.setStyle(Paint.Style.FILL);
+        mPercentPaint.setColor(percentTxtColor);
+        mPercentPaint.setTextSize(percentTextSize);
+
+        //实心圆画笔
+        mCirclePaint = new Paint();
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setStyle(Paint.Style.FILL);
+        mCirclePaint.setColor(Color.WHITE);
 
         //获取字体高度
-        Paint.FontMetrics fm = mUsedPercentTxtPaint.getFontMetrics();
-        mUsedPercentTxtHeight = (int) Math.ceil(fm.descent - fm.ascent);
+        Paint.FontMetrics fm = mPercentPaint.getFontMetrics();
+        mPercentTxtHeight = (int) Math.ceil(fm.descent - fm.ascent);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        // TODO Auto-generated method stub
         super.onDraw(canvas);
-        mXCenter = getWidth() / 2;
-        mYCenter = getHeight() / 2;
+        int xCenter = getWidth() / 2;
+        int yCenter = getHeight() / 2;
 
         RectF oval = new RectF();
-        oval.left = (mXCenter - mArcRadius);
-        oval.top = (mYCenter - mArcRadius);
-        oval.right = mArcRadius * 2 + (mXCenter - mArcRadius);
-        oval.bottom = mArcRadius * 2 + (mYCenter - mArcRadius);
-        SweepGradient sweepGradient = new SweepGradient(mXCenter, mYCenter, Color.RED, Color.TRANSPARENT);
+        oval.left = (xCenter - mArcRadius);
+        oval.top = (yCenter - mArcRadius);
+        oval.right = mArcRadius * 2 + (xCenter - mArcRadius);
+        oval.bottom = mArcRadius * 2 + (yCenter - mArcRadius);
+        SweepGradient sweepGradient = new SweepGradient(xCenter, yCenter,mBgArcStartColor, mBgArcEndColor);
         Matrix gradientMatrix = new Matrix();
-        gradientMatrix.preRotate(20, mXCenter, mYCenter);
+        gradientMatrix.preRotate(20, xCenter, yCenter);
         sweepGradient.setLocalMatrix(gradientMatrix);
-        mBackgroudArcPaint.setShader(sweepGradient);
+        mBackgroundArcPaint.setShader(sweepGradient);
         //绘制背景圆弧
-        canvas.drawArc(oval, -180, 180, false, mBackgroudArcPaint);
-        //绘制已使用圆弧
-        float mShowDegree = mShowProgress/100*180;
-//        canvas.drawArc(oval, -180, mShowDegree, false, mUsedArcPaint);
+        canvas.drawArc(oval, -180, 180, false, mBackgroundArcPaint);
+        //绘制实行圆
+        float mShowDegree = mShowProgress*180;
+        canvas.save();
+        canvas.translate(xCenter, yCenter);
+        canvas.rotate(mShowDegree);
+        canvas.drawCircle(- mArcRadius, 0, mCircleRadius, mCirclePaint);
+        canvas.rotate(-mShowDegree);
+        canvas.restore();
 
-        //已使用文字
+
         Rect usedRect = new Rect();
-        String usedStr = "已使用";
-        mUsedTxtPaint.getTextBounds(usedStr, 0, usedStr.length(), usedRect);
-        int usedX = mXCenter - usedRect.width() / 2;
-        canvas.drawText(usedStr, usedX, mYCenter-mArcRadius*0.6f, mUsedTxtPaint);
-        //已使用和总流量
-        Rect ua_rect = new Rect();
-        mUsedTxtPaint.getTextBounds(mUserdAndAll, 0, mUserdAndAll.length(), ua_rect);
-        int uaX = mXCenter - ua_rect.width() / 2;
-        canvas.drawText(mUserdAndAll, uaX, mYCenter+mArcRadius*0.6f, mUsedTxtPaint);
+        String usedStr = "成功率预估";
+        mTipsPaint.getTextBounds(usedStr, 0, usedStr.length(), usedRect);
+        int usedX = xCenter - usedRect.width() / 2;
+        canvas.drawText(usedStr, usedX, yCenter-mArcRadius*0.6f, mTipsPaint);
 
         //百分比数字
-        String progressStr = (int)mShowProgress+"";
-        String percentStr = "%";
-        float usedPercentWidth = mUsedPercentTxtPaint.measureText(progressStr, 0, progressStr.length());
-        float percentWidth = mPercentTxtPaint.measureText(percentStr, 0, percentStr.length());
-        float upX = mXCenter-(usedPercentWidth + percentWidth)/2;
-        canvas.drawText(progressStr, upX, mYCenter+mUsedPercentTxtHeight/3, mUsedPercentTxtPaint);
-        float pX = upX + usedPercentWidth;
-        canvas.drawText(percentStr, pX, mYCenter+mUsedPercentTxtHeight/3, mPercentTxtPaint);
+        String progressStr = (int)(mShowProgress * 100) +"%";
+        float usedPercentWidth = mPercentPaint.measureText(progressStr, 0, progressStr.length());
+        float upX = xCenter-usedPercentWidth/2;
+        canvas.drawText(progressStr, upX, yCenter+ mPercentTxtHeight /3, mPercentPaint);
     }
 
-    private void setShowProgress(float progress){
-        this.mShowProgress = progress;
-        postInvalidate();
-    }
 
     public void setProgress(float progress) {
-        mProgress = progress;
-        new Thread(new CircleThread()).start();
-    }
-
-
-    public void setUsedArcColor(int usedArcColor) {
-        this.mUsedArcColor = usedArcColor;
-        if(mUsedArcPaint!=null){
-            mUsedArcPaint.setColor(mUsedArcColor);
+        mProgressBefore = mProgress;
+        mProgress = progress / 100.00f;
+        if(!mCircleHandler.isRunning) {
+            mCircleHandler.start();
         }
     }
 
-    public void setUsedAndAll(String usedAndAll) {
-        this.mUserdAndAll = usedAndAll;
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if(mCircleHandler != null && mCircleHandler.isRunning) {
+            mCircleHandler.stop();
+        }
     }
 
+    private static class CircleHandler extends Handler{
+        private final static int MSG_NEXT = 1;
+        private final static int MSG_STOP = 2;
+        private static final int DURATION_TIME = 60; // 36ms刷新一次
+        private WeakReference<SemicircleView> mWeakReference;
+        private boolean isRunning;
+        private float mIndex = 0f;
 
-
-    private class CircleThread implements Runnable{
-
-        int m=0;
-        float i=0;
+        CircleHandler(SemicircleView semicircleView) {
+            mWeakReference = new WeakReference<SemicircleView>(semicircleView);
+        }
 
         @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            while(!Thread.currentThread().isInterrupted()){
-                try {
-                    Thread.sleep(70);
-                    m++;
-                    Message msg = new Message();
-                    msg.what = 1;
-                    if(i < mProgress){
-                        i += m;
-                        msg.obj = i;
-                        circleHandler.sendMessage(msg);
-                    }else{
-                        i = mProgress;
-                        msg.obj = i;
-                        circleHandler.sendMessage(msg);
-                        return;
-                    }
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(mWeakReference == null|| mWeakReference.get() == null) {
+                return;
+            }
+            SemicircleView semicircleView = mWeakReference.get();
+
+            if(msg.what == MSG_NEXT) {
+                if(!isRunning) {
+                    return;
                 }
+                if(mIndex > 10) {
+                    stop();
+                } else {
+                    semicircleView.mShowProgress = mIndex / 10 * (semicircleView.mProgress - semicircleView.mProgressBefore) + semicircleView.mProgressBefore;
+                    mIndex ++;
+                    semicircleView.invalidate();
+                    sendEmptyMessageDelayed(MSG_NEXT, DURATION_TIME);
+                }
+            }else if(msg.what == MSG_STOP) {
+                removeMessages(MSG_NEXT);
+                removeMessages(MSG_STOP);
             }
         }
+        private void start() {
+            isRunning = true;
+            sendEmptyMessageDelayed(MSG_NEXT, DURATION_TIME);
+        }
 
-    }
+        private void stop() {
+            mIndex = 0;
+            isRunning = false;
+            sendEmptyMessage(MSG_STOP);
+        }
+    };
 
 }

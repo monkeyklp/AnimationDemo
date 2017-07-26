@@ -4,18 +4,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Random;
 
 import klp.chebada.com.animationdemo.view.SemicircleView;
 
 public class SemicircleActivity extends AppCompatActivity {
+    private static final String TAG = "SemicircleActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semicircle);
-        SemicircleView view =  (SemicircleView)findViewById(R.id.semicircle);
-        view.setUsedAndAll("170M/200M");
-        view.setProgress(81);
+        final SemicircleView view =  (SemicircleView)findViewById(R.id.semicircle);
+        Button btn = (Button)findViewById(R.id.change);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random r = new Random();
+                int progress = r.nextInt(100);
+                view.setProgress(progress);
+                Log.d(TAG, progress + "");
+            }
+        });
+
     }
 
     public static void startActivity(Context fromActivity) {

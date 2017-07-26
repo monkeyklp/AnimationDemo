@@ -93,11 +93,13 @@
 
     <declare-styleable name="SemicircleView">
         <attr name="radius" format="dimension" />
+        <attr name="circleRadius" format="dimension" />
         <attr name="strokeWidth" format="dimension" />
-        <attr name="bgArcColor" format="color" />
-        <attr name="usedArcColor" format="color" />
-        <attr name="usedTextSize" format="dimension" />
-        <attr name="usedPercentTextSize" format="dimension" />
+        <attr name="bgArcStartColor" format="color" />
+        <attr name="bgArcEndColor" format="color" />
+        <attr name="tipTxtColor" format="color" />
+        <attr name="percentTxtColor" format="color" />
+        <attr name="tipsTextSize" format="dimension" />
         <attr name="percentTextSize" format="dimension" />
     </declare-styleable>
 
