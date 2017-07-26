@@ -20,6 +20,7 @@ public class SemicircleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semicircle);
         final SemicircleView view =  (SemicircleView)findViewById(R.id.semicircle);
+        view.setProgress(80.26f);
         Button btn = (Button)findViewById(R.id.change);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,6 +15,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import klp.chebada.com.animationdemo.R;
 
@@ -62,7 +64,6 @@ public class SemicircleView extends View {
 
     public SemicircleView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        // 获取自定义的属性
         initAttrs(context, attrs);
         mCircleHandler = new CircleHandler(this);
     }
@@ -131,7 +132,7 @@ public class SemicircleView extends View {
         //绘制背景圆弧
         canvas.drawArc(oval, -180, 180, false, mBackgroundArcPaint);
         //绘制实行圆
-        float mShowDegree = mShowProgress*180;
+        float mShowDegree = mShowProgress *180;
         canvas.save();
         canvas.translate(xCenter, yCenter);
         canvas.rotate(mShowDegree);
@@ -147,12 +148,18 @@ public class SemicircleView extends View {
         canvas.drawText(usedStr, usedX, yCenter-mArcRadius*0.6f, mTipsPaint);
 
         //百分比数字
-        String progressStr = (int)(mShowProgress * 100) +"%";
+        String progressStr = format(mShowProgress * 100) +"%";
         float usedPercentWidth = mPercentPaint.measureText(progressStr, 0, progressStr.length());
-        float upX = xCenter-usedPercentWidth/2;
+        float upX = xCenter - usedPercentWidth/2;
         canvas.drawText(progressStr, upX, yCenter+ mPercentTxtHeight /3, mPercentPaint);
     }
 
+    public String format(double value) {
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.toString();
+    }
 
     public void setProgress(float progress) {
         mProgressBefore = mProgress;
