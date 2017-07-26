@@ -30,7 +30,6 @@ public class SemicircleActivity extends AppCompatActivity {
                 Log.d(TAG, progress + "");
             }
         });
-
     }
 
     public static void startActivity(Context fromActivity) {
