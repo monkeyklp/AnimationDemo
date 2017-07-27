@@ -52,7 +52,6 @@ public class SemicircleView extends View {
     public float mProgressBefore = 0;
     //动画展示弧度
     private float mShowProgress;
-    private float mPercentTxtHeight;
     private CircleHandler mCircleHandler;
 
 
@@ -111,9 +110,6 @@ public class SemicircleView extends View {
         mCirclePaint.setStyle(Paint.Style.FILL);
         mCirclePaint.setColor(Color.WHITE);
 
-        //获取字体高度
-        Paint.FontMetrics fm = mPercentPaint.getFontMetrics();
-        mPercentTxtHeight = (int) Math.ceil(fm.descent - fm.ascent);
     }
 
     @Override
