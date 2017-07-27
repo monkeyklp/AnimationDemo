@@ -28,6 +28,7 @@
         app:percentTextSize="30sp"
         app:tipTxtColor="@android:color/white"
         app:percentTxtColor="@android:color/white"
+        app:tipsText="成功率预估"
         />
 
     

@@ -45,6 +45,8 @@ public class SemicircleView extends View {
     private int  mBgArcStartColor;
     //渐变结束的颜色
     private int mBgArcEndColor;
+    //提示文案
+    private String mTipsTxt;
     //已使用百分比
     public float mProgress=0;
     public float mProgressBefore = 0;
@@ -80,6 +82,7 @@ public class SemicircleView extends View {
         int percentTxtColor = typeArray.getColor(R.styleable.SemicircleView_percentTxtColor, Color.WHITE);
         mBgArcStartColor = typeArray.getColor(R.styleable.SemicircleView_bgArcStartColor, Color.BLUE);
         mBgArcEndColor = typeArray.getColor(R.styleable.SemicircleView_bgArcEndColor, Color.WHITE);
+        mTipsTxt = typeArray.getString(R.styleable.SemicircleView_tipsText);
         typeArray.recycle();
 
         //背景圆弧画笔设置
@@ -142,16 +145,16 @@ public class SemicircleView extends View {
 
 
         Rect usedRect = new Rect();
-        String usedStr = "成功率预估";
-        mTipsPaint.getTextBounds(usedStr, 0, usedStr.length(), usedRect);
+//        String usedStr = "成功率预估";
+        mTipsPaint.getTextBounds(mTipsTxt, 0, mTipsTxt.length(), usedRect);
         int usedX = xCenter - usedRect.width() / 2;
-        canvas.drawText(usedStr, usedX, yCenter-mArcRadius*0.6f, mTipsPaint);
+        canvas.drawText(mTipsTxt, usedX, yCenter-mArcRadius*0.4f, mTipsPaint);
 
         //百分比数字
         String progressStr = format(mShowProgress * 100) +"%";
         float usedPercentWidth = mPercentPaint.measureText(progressStr, 0, progressStr.length());
         float upX = xCenter - usedPercentWidth/2;
-        canvas.drawText(progressStr, upX, yCenter+ mPercentTxtHeight /3, mPercentPaint);
+        canvas.drawText(progressStr, upX, yCenter, mPercentPaint);
     }
 
     public String format(double value) {

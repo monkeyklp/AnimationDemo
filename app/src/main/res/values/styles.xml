@@ -100,6 +100,7 @@
         <attr name="tipTxtColor" format="color" />
         <attr name="percentTxtColor" format="color" />
         <attr name="tipsTextSize" format="dimension" />
+        <attr name="tipsText" format="string" />
         <attr name="percentTextSize" format="dimension" />
     </declare-styleable>
 
