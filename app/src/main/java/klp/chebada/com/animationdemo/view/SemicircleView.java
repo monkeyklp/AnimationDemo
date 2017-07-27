@@ -117,10 +117,18 @@ public class SemicircleView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int resultSize =(int)mCircleRadius*2 + (int)mArcRadius;
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        setMeasuredDimension(widthSize, resultSize);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int xCenter = getWidth() / 2;
-        int yCenter = getHeight() / 2;
+        int yCenter = getHeight() - (int)mCircleRadius;
 
         RectF oval = new RectF();
         oval.left = (xCenter - mArcRadius);
