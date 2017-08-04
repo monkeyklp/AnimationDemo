@@ -43,6 +43,8 @@ public class SemicircleView extends View {
     private float mArcStrokeWidth;
     //渐变开始的颜色
     private int  mBgArcStartColor;
+    //渐变中间的颜色
+    private int mBgArcMiddleColor;
     //渐变结束的颜色
     private int mBgArcEndColor;
     //提示文案
@@ -80,6 +82,7 @@ public class SemicircleView extends View {
         int tipsTxtColor = typeArray.getColor(R.styleable.SemicircleView_tipTxtColor, Color.WHITE);
         int percentTxtColor = typeArray.getColor(R.styleable.SemicircleView_percentTxtColor, Color.WHITE);
         mBgArcStartColor = typeArray.getColor(R.styleable.SemicircleView_bgArcStartColor, Color.BLUE);
+        mBgArcMiddleColor = typeArray.getColor(R.styleable.SemicircleView_bgArcMiddleColor, Color.WHITE);
         mBgArcEndColor = typeArray.getColor(R.styleable.SemicircleView_bgArcEndColor, Color.WHITE);
         mTipsTxt = typeArray.getString(R.styleable.SemicircleView_tipsText);
         typeArray.recycle();
@@ -112,28 +115,30 @@ public class SemicircleView extends View {
 
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int resultSize =(int)mCircleRadius*2 + (int)mArcRadius;
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        setMeasuredDimension(widthSize, resultSize);
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        int resultSize =(int)mCircleRadius*2 + (int)mArcRadius;
+//        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+//        setMeasuredDimension(widthSize, resultSize);
+//    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int xCenter = getWidth() / 2;
-        int yCenter = getHeight() - (int)mCircleRadius;
+//        int yCenter = getHeight() - (int)mCircleRadius;
+        int yCenter = getHeight()/2;
 
         RectF oval = new RectF();
         oval.left = (xCenter - mArcRadius);
         oval.top = (yCenter - mArcRadius);
         oval.right = mArcRadius * 2 + (xCenter - mArcRadius);
         oval.bottom = mArcRadius * 2 + (yCenter - mArcRadius);
-        SweepGradient sweepGradient = new SweepGradient(xCenter, yCenter,mBgArcStartColor, mBgArcEndColor);
+        int[] colors = new int[]{mBgArcStartColor, mBgArcMiddleColor, mBgArcEndColor};
+        SweepGradient sweepGradient = new SweepGradient(xCenter, yCenter,colors, new float[] {0, 0.1f, 1f});
         Matrix gradientMatrix = new Matrix();
-        gradientMatrix.preRotate(20, xCenter, yCenter);
+        gradientMatrix.preRotate(175, xCenter, yCenter);
         sweepGradient.setLocalMatrix(gradientMatrix);
         mBackgroundArcPaint.setShader(sweepGradient);
         //绘制背景圆弧

@@ -96,6 +96,7 @@
         <attr name="circleRadius" format="dimension" />
         <attr name="strokeWidth" format="dimension" />
         <attr name="bgArcStartColor" format="color" />
+        <attr name="bgArcMiddleColor" format="color"/>
         <attr name="bgArcEndColor" format="color" />
         <attr name="tipTxtColor" format="color" />
         <attr name="percentTxtColor" format="color" />

@@ -18,17 +18,18 @@
     <klp.chebada.com.animationdemo.view.SemicircleView
         android:id="@+id/semicircle"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:radius="100dp"
-        app:circleRadius="20dp"
-        app:strokeWidth="11dp"
-        app:bgArcStartColor="@android:color/white"
+        android:layout_height="match_parent"
         app:bgArcEndColor="#A9DCFC"
-        app:tipsTextSize="14sp"
+        app:bgArcMiddleColor="#E2F4FF"
+        app:bgArcStartColor="@android:color/white"
+        app:circleRadius="15dp"
         app:percentTextSize="30sp"
-        app:tipTxtColor="@android:color/white"
         app:percentTxtColor="@android:color/white"
+        app:radius="100dp"
+        app:strokeWidth="11dp"
+        app:tipTxtColor="@android:color/white"
         app:tipsText="成功率预估"
+        app:tipsTextSize="14sp"
         />
 
     
