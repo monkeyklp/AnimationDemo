@@ -84,6 +84,7 @@ public class SemicircleView extends View {
         mBgArcStartColor = typeArray.getColor(R.styleable.SemicircleView_bgArcStartColor, Color.BLUE);
         mBgArcMiddleColor = typeArray.getColor(R.styleable.SemicircleView_bgArcMiddleColor, Color.WHITE);
         mBgArcEndColor = typeArray.getColor(R.styleable.SemicircleView_bgArcEndColor, Color.WHITE);
+        int shadowColor = typeArray.getColor(R.styleable.SemicircleView_shadowColor, Color.WHITE);
         mTipsTxt = typeArray.getString(R.styleable.SemicircleView_tipsText);
         typeArray.recycle();
 
@@ -112,6 +113,8 @@ public class SemicircleView extends View {
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setStyle(Paint.Style.FILL);
         mCirclePaint.setColor(Color.WHITE);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        mCirclePaint.setShadowLayer(8, 1, 1, shadowColor);
 
     }
 

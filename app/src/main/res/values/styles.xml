@@ -100,6 +100,7 @@
         <attr name="bgArcEndColor" format="color" />
         <attr name="tipTxtColor" format="color" />
         <attr name="percentTxtColor" format="color" />
+        <attr name="shadowColor" format="color"/>
         <attr name="tipsTextSize" format="dimension" />
         <attr name="tipsText" format="string" />
         <attr name="percentTextSize" format="dimension" />

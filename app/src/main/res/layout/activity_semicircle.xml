@@ -30,6 +30,7 @@
         app:tipTxtColor="@android:color/white"
         app:tipsText="成功率预估"
         app:tipsTextSize="14sp"
+        app:shadowColor="#2979ff"
         />
 
     
