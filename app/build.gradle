@@ -6,7 +6,7 @@ android {
     dataBinding.enabled = true
 
     defaultConfig {
-        applicationId "klp.chebada.com.animationdemo"
+        applicationId "klp.com.animationdemo"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
