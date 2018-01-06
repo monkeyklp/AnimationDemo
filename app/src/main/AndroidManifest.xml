@@ -3,6 +3,8 @@
     package="klp.com.animationdemo"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -47,6 +49,11 @@
         <activity android:name=".Rx.RxActivity"/>
         <activity android:name=".NestedScrollActivity"
             android:theme="@style/AppTheme.NestedScroll"/>
+        <activity android:name=".AdaptationActivity"/>
+        <activity android:name=".CameraActivity">
+        </activity>
+        <activity android:name=".SemicircleActivity">
+        </activity>
     </application>
 
 </manifest>
