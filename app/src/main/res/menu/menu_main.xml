@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="klp.chebada.com.animationdemo.MainActivity">
+      tools:context="klp.com.animationdemo.MainActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

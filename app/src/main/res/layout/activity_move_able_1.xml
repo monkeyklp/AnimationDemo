@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <klp.chebada.com.animationdemo.view.MoveBall
+    <klp.com.animationdemo.view.MoveBall
         android:id="@+id/moveBall"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -13,7 +13,7 @@
         android:id="@+id/second"
         android:layout_width="match_parent"
         android:layout_height="128dp"
-        app:layout_behavior="klp.chebada.com.animationdemo.behavior.FollowBehavior"
+        app:layout_behavior="klp.com.animationdemo.behavior.FollowBehavior"
         app:target="@id/first"
         android:background="@android:color/holo_green_light"/>
 
