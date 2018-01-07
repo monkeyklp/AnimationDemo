@@ -44,7 +44,7 @@ public class AdaptationActivity extends AppCompatActivity {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        Uri imageUri = FileProvider.getUriForFile(this, "klp.chebada.com.animationdemo.fileprovider", file);//通过FileProvider创建一个content类型的Uri
+        Uri imageUri = FileProvider.getUriForFile(this, "klp.com.animationdemo.fileprovider", file);//通过FileProvider创建一个content类型的Uri
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
