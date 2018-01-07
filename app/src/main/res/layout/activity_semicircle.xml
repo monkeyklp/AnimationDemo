@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    android:orientation="vertical">
+
+    
+    <Button
+        android:id="@+id/change"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="change"/>
+    
+    <klp.com.animationdemo.view.SemicircleView
+        android:id="@+id/semicircle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bgArcEndColor="#A9DCFC"
+        app:bgArcMiddleColor="#E2F4FF"
+        app:bgArcStartColor="@android:color/white"
+        app:circleRadius="15dp"
+        app:percentTextSize="30sp"
+        app:percentTxtColor="@android:color/white"
+        app:radius="100dp"
+        app:strokeWidth="11dp"
+        app:tipTxtColor="@android:color/white"
+        app:tipsText="成功率预估"
+        app:tipsTextSize="14sp"
+        app:shadowColor="#2979ff"
+        />
+
+    
+
+</LinearLayout>

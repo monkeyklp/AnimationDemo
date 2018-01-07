@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="ringtone_list">
+        <item>first</item>
+        <item>second</item>
+        <item>third</item>
+    </array>
+
+    <declare-styleable name="Follow">
+        <attr name="target" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="app">
+        <attr name="windowToolbar" format="boolean"/>
+        <attr name="toolbarBackgroundColor" format="color"/>
+        <attr name="nestedScroll" format="boolean"/>
+    </declare-styleable>
+
+</resources>
