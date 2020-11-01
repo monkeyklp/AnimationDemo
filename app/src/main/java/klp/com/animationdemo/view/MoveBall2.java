@@ -115,15 +115,20 @@ public class MoveBall2 extends View {
 
         switch (event.getAction()) {
             case ACTION_MOVE:
-                int x = (int) event.getRawX();
-                int y = (int) event.getRawY();
-                mLayoutParams.x = (int)(x - mStartX);
-                mLayoutParams.y = (int)(y - mStartY);
+                float x = event.getRawX();
+                float y = event.getRawY();
+                int deviationX = (int)(x - mStartX);
+                int deviationY = (int)(y - mStartY);
+
+                mStartX = event.getRawX();
+                mStartY = event.getRawY();
+                mLayoutParams.x = mLayoutParams.x + deviationX;
+                mLayoutParams.y = mLayoutParams.y + deviationY;
                 mWindowManager.updateViewLayout(this, mLayoutParams);
                 break;
             case ACTION_DOWN :
-                mStartX = event.getX();
-                mStartY = event.getY();
+                mStartX = event.getRawX();
+                mStartY = event.getRawY();
                 break;
             default:
                 break;

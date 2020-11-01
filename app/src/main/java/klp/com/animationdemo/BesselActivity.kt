@@ -2,7 +2,9 @@ package klp.com.animationdemo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import klp.com.animationdemo.view.MoveBall3
 
 class BesselActivity : AppCompatActivity() {
 
@@ -16,5 +18,7 @@ class BesselActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bessel)
+//        val moveView = findViewById<MoveBall3>(R.id.moveBall)
+//        moveView.setCallback { x, y -> moveView.scrollTo(x, y) }
     }
 }
