@@ -13,7 +13,7 @@
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
 
-        <android.support.design.widget.BottomNavigationView
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -22,6 +22,6 @@
             app:itemTextColor="@android:color/black"
             app:itemIconTint="@color/blue"
             app:menu="@menu/bottom_navigation_menu">
-        </android.support.design.widget.BottomNavigationView>
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
 </layout>
