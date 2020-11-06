@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -121,6 +122,8 @@ public class MoveBall3 extends View {
 //                scrollTo(sumX + (int) firstX - x, sumY + (int) firstY - y);
                 setTranslationX(getTranslationX() + deviationX);
                 setTranslationY(getTranslationY() + deviationY);
+                Log.e("MoveBall3", getTop() +"");
+//                invalidate();
 //                reFreshPosition(getTranslationX() + deviationX, getTranslationY() + deviationY);
                 break;
 
