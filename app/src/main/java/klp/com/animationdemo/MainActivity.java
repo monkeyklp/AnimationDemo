@@ -3,10 +3,6 @@ package klp.com.animationdemo;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 "nestedscrollview",
                 "android7.0适配",
                 "半圆进度条",
-                "复杂动画（贝塞尔）"
+                "复杂动画（贝塞尔）",
+                "评论View"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -145,6 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (position == 22) {//复杂动画（贝塞尔）
                     BesselActivity.Companion.startActivity(MainActivity.this);
+                }
+                if (position == 23) {//评论View
+                    CommentActivity.Companion.startActivity(MainActivity.this);
                 }
             }
         });
