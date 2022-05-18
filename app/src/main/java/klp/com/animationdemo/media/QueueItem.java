@@ -3,6 +3,8 @@ package klp.com.animationdemo.media;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.RequiresApi;
 
@@ -16,19 +18,26 @@ public class QueueItem {
         mContext = context;
     }
      public void run(final Function function) {
-         final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
-         manager.setCallback(new MediaPlayerManager.Callback() {
-             @RequiresApi(api = Build.VERSION_CODES.N)
+         new Handler(Looper.getMainLooper()).post(new Runnable() {
              @Override
-             public void next() {
-                 function.apply(this);
-             }
+             public void run() {
+                 final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
+                 manager.setCallback(new MediaPlayerManager.Callback() {
+                     @RequiresApi(api = Build.VERSION_CODES.N)
+                     @Override
+                     public void next() {
+                         function.apply(this);
+                     }
 
-             @Override
-             public void connectState(boolean connected) {
-                if (connected) {
-                    manager.play(mSong);
-                }
+                     @Override
+                     public void connectState(boolean connected) {
+                         if (connected) {
+
+                         }
+                     }
+                 });
+
+                 manager.play(mSong);
              }
          });
      }

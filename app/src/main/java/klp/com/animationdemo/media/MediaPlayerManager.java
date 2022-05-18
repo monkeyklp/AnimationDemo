@@ -30,7 +30,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         init();
     }
 
-    private static volatile MediaPlayerManager sManager = null;
+    private static MediaPlayerManager sManager = null;
 
     public synchronized static MediaPlayerManager getInstance(Context context) {
         if (sManager == null) {
@@ -233,7 +233,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         releaseAudioFocus();
     }
 
-    interface Callback {
+   public interface Callback {
         void next();
         void connectState(boolean connected);
     }

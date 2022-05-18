@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 "android7.0适配",
                 "半圆进度条",
                 "复杂动画（贝塞尔）",
-                "评论View"
+                "评论View",
+                "媒体测试"
         };
 
         for (int i = 0; i < items.length; i++) {
@@ -151,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (position == 23) {//评论View
                     CommentActivity.Companion.startActivity(MainActivity.this);
+                }
+                if (position == 24) {//
+                    MediaActivity.Companion.startActivity(MainActivity.this);
                 }
             }
         });

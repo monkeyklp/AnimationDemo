@@ -18,7 +18,9 @@ public class MediaQueueCenter {
     private QueueItem mCurrentQueueItem;
     private Boolean isPlayRunning = false;
 
-    private MediaQueueCenter() {}
+    private MediaQueueCenter() {
+        init();
+    }
     private static class SingletonInstance {
         private static final MediaQueueCenter instance = new MediaQueueCenter();
     }
@@ -26,15 +28,16 @@ public class MediaQueueCenter {
         return SingletonInstance.instance;
     }
 
-    public void enqueue(String song) {
+    public void enqueue(QueueItem song, boolean needStart) {
         mQueue.offer(song);
-        if (mWorkHandler != null) {
+        if (mWorkHandler != null && needStart) {
             mWorkHandler.removeMessages(MSG_EXPENSE_TASK);
             mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
         }
     }
 
-    public void start() {
+    private void init() {
+        if (mWorkHandler != null) return;
         mHandlerThread.start();
         mWorkHandler = new Handler(mHandlerThread.getLooper()){
             @RequiresApi(api = Build.VERSION_CODES.N)
