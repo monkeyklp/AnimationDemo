@@ -56,6 +56,9 @@
         <activity android:name=".AdaptationActivity" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".SemicircleActivity" />
+        <service android:name=".media.PlayService"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>
