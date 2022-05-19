@@ -72,10 +72,12 @@ class MediaActivity : AppCompatActivity() {
                         mAdapter?.addData(song)
                         smoothScroll2Position(mAdapter?.itemCount?:0 -1)
                     }
-
                 }
             }
+        }
 
+        findViewById<Button>(R.id.endTaskBtn).setOnClickListener {
+            MediaPlayerManager.getInstance(baseContext).release()
         }
 
     }
