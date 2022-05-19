@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import klp.com.animationdemo.adapter.ListAdapter;
 
@@ -39,10 +38,10 @@ public class TabFragment extends Fragment {
 
         String[] listItems = mItemData.split(" ");
 
-        List<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
         Collections.addAll(list, listItems);
 
-        mAdapter = new ListAdapter(list);
+        mAdapter = new ListAdapter(list, null);
         recyclerView.setAdapter(mAdapter);
 
         return view;

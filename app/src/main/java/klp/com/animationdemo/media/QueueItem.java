@@ -31,12 +31,8 @@ public class QueueItem {
 
                      @Override
                      public void connectState(boolean connected) {
-                         if (connected) {
-
-                         }
                      }
                  });
-
                  manager.play(mSong);
              }
          });

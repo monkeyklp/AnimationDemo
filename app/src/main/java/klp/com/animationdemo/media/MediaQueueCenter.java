@@ -66,7 +66,7 @@ public class MediaQueueCenter {
         };
     }
 
-    private void queryNext() {
+    public void queryNext() {
         isPlayRunning = false;
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
     }

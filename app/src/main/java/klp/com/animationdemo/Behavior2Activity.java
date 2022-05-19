@@ -3,6 +3,7 @@ package klp.com.animationdemo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import klp.com.animationdemo.adapter.ListAdapter;
 
@@ -40,9 +40,9 @@ public class Behavior2Activity extends AppCompatActivity{
 
         String[] listItems = mItemData.split(" ");
 
-        List<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
         Collections.addAll(list, listItems);
-        mRecyclerView.setAdapter(new ListAdapter(list));
+        mRecyclerView.setAdapter(new ListAdapter(list, null));
 
     }
 }

@@ -21,13 +21,13 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
 
     private Callback mCallback;
 
-    public void setCallback(Callback mCallback) {
+    public MediaPlayerManager setCallback(Callback mCallback) {
         this.mCallback = mCallback;
+        return this;
     }
 
     private MediaPlayerManager(Context context) {
         mContext = context;
-        init();
     }
 
     private static MediaPlayerManager sManager = null;
@@ -39,7 +39,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         return sManager;
     }
 
-    private void init() {
+    public void init() {
         mContext.bindService(new Intent(mContext, PlayService.class), mConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -97,7 +97,6 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
                     mService.startPlayer(song);
                 }
             }
-
         }
 
     }
