@@ -71,6 +71,10 @@ public class MediaQueueCenter {
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
     }
 
+    public QueueItem getCurrentQueueItem() {
+        return mCurrentQueueItem;
+    }
+
     public void stop() {
 
     }

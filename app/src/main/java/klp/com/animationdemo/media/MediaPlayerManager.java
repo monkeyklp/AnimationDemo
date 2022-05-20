@@ -15,7 +15,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     private static final String TAG = MediaPlayerManager.class.getSimpleName();
     private Context mContext;
     private PlayService mService;
-    private String mSong;
+    private MusicBean mSong;
     private int mState = PlayService.STATE_IDLE;
     private AudioFocusRequest mAudioFocusRequest;
 
@@ -72,13 +72,13 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         }
     };
 
-    public void play(String song) {
+    public void play(MusicBean song) {
         if (mService != null) {
             if (song == null && mSong == null) { //播放下一首
                 if (mCallback != null) {
                     mCallback.next();
                 }
-            } else if (song.equals(mSong)) {
+            } else if (mSong!= null && song.musicId == mSong.musicId) {
                 if (mService.isStarted()) {
                     pause();
                 } else if (mService.isPaused()) {
@@ -87,14 +87,14 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
                     mService.releasePlayer();
                     if (AudioManager.AUDIOFOCUS_REQUEST_GRANTED == requestAudioFocus()) {
                         mSong = song;
-                        mService.startPlayer(song);
+                        mService.startPlayer(song.musicUrl);
                     }
                 }
             } else {
                 mService.releasePlayer();
                 if (AudioManager.AUDIOFOCUS_REQUEST_GRANTED == requestAudioFocus()) {
                     mSong = song;
-                    mService.startPlayer(song);
+                    mService.startPlayer(song.musicUrl);
                 }
             }
         }
@@ -125,13 +125,14 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     }
 
     public void release() {
+        mSong = null;
         mService.releasePlayer();
         unbindPlayService();
         mService.setPlayStateChangeListener(null);
         mService = null;
     }
 
-    public String getCurrentSong() {
+    public MusicBean getCurrentSong() {
         return mSong;
     }
 

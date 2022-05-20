@@ -11,9 +11,9 @@ import androidx.annotation.RequiresApi;
 import java.util.function.Function;
 
 public class QueueItem {
-    String mSong;
+    MusicBean mSong;
     Context mContext;
-    public QueueItem(Context context, String song) {
+    public QueueItem(Context context, MusicBean song) {
         this.mSong = song;
         mContext = context;
     }
