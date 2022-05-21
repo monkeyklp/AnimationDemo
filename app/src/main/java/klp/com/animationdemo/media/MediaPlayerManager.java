@@ -11,6 +11,12 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import klp.com.animationdemo.util.SdkApplicationUtils;
+
 public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     private static final String TAG = MediaPlayerManager.class.getSimpleName();
     private Context mContext;
@@ -18,11 +24,10 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     private MusicBean mSong;
     private int mState = PlayService.STATE_IDLE;
     private AudioFocusRequest mAudioFocusRequest;
+    private CopyOnWriteArrayList<Callback> observers = new CopyOnWriteArrayList<>();
 
-    private Callback mCallback;
-
-    public MediaPlayerManager setCallback(Callback mCallback) {
-        this.mCallback = mCallback;
+    public MediaPlayerManager registerCallback(Callback callback) {
+        observers.add(callback);
         return this;
     }
 
@@ -32,9 +37,9 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
 
     private static MediaPlayerManager sManager = null;
 
-    public synchronized static MediaPlayerManager getInstance(Context context) {
+    public synchronized static MediaPlayerManager getInstance() {
         if (sManager == null) {
-            sManager = new MediaPlayerManager(context.getApplicationContext());
+            sManager = new MediaPlayerManager(SdkApplicationUtils.getApplication());
         }
         return sManager;
     }
@@ -55,9 +60,9 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
             mService = ((PlayService.PlayBinder) service).getService();
             mService.setPlayStateChangeListener(MediaPlayerManager.this);
             Log.v(TAG, "onServiceConnected ");
-            if (mCallback != null) {
-                mCallback.connectState(true);
-            }
+//            if (mCallback != null) {
+//                mCallback.connectState(true);
+//            }
 
         }
 
@@ -66,18 +71,16 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
             Log.v(TAG, "onServiceDisconnected " + name);
             mService.setPlayStateChangeListener(null);
             mService = null;
-            if (mCallback != null) {
-                mCallback.connectState(false);
-            }
+//            if (mCallback != null) {
+//                mCallback.connectState(false);
+//            }
         }
     };
 
     public void play(MusicBean song) {
         if (mService != null) {
             if (song == null && mSong == null) { //播放下一首
-                if (mCallback != null) {
-                    mCallback.next();
-                }
+                observers.forEach((callback) -> callback.next(mSong));
             } else if (mSong!= null && song.musicId == mSong.musicId) {
                 if (mService.isStarted()) {
                     pause();
@@ -188,6 +191,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onStateChanged(int state) {
         mState = state;
@@ -205,10 +209,10 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
 
                 break;
             case PlayService.STATE_STARTED:
-
+                observers.forEach((callback) -> callback.start(mSong));
                 break;
             case PlayService.STATE_PAUSED:
-
+                observers.forEach((callback) -> callback.paused(mSong));
                 break;
             case PlayService.STATE_ERROR:
                 releaseAudioFocus();
@@ -218,9 +222,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
                 break;
             case PlayService.STATE_COMPLETED:
                 releaseAudioFocus();
-                if (mCallback != null) {
-                    mCallback.next();
-                }
+                observers.forEach((callback) -> callback.next(mSong));
                 break;
             case PlayService.STATE_RELEASED:
                 releaseAudioFocus();
@@ -234,7 +236,10 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     }
 
    public interface Callback {
-        void next();
+        void next(MusicBean song);
+        void start(MusicBean song);
+        void paused(MusicBean song);
         void connectState(boolean connected);
+
     }
 }

@@ -27,19 +27,19 @@ public class QueueItem {
                 @Override
                 public void run() {
                     //发消息同步adater更新状态
-                    final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
-                    manager.setCallback(new MediaPlayerManager.Callback() {
-                        @Override
-                        public void next() {
-
-                            function.apply(this);
-                        }
-
-                        @Override
-                        public void connectState(boolean connected) {
-                        }
-                    });
-                    manager.play(mSong);
+//                    final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
+//                    manager.setCallback(new MediaPlayerManager.Callback() {
+//                        @Override
+//                        public void next() {
+//
+//                            function.apply(this);
+//                        }
+//
+//                        @Override
+//                        public void connectState(boolean connected) {
+//                        }
+//                    });
+//                    manager.play(mSong);
                 }
             });
         }

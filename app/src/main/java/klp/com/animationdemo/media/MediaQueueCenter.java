@@ -72,7 +72,9 @@ public class MediaQueueCenter {
                 }
             }
         };
+//        addPlayStateCallback();
     }
+
 
     private void queryNext() {
         isPlayRunning = false;
