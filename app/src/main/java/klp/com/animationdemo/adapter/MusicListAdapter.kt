@@ -30,6 +30,8 @@ class MusicListAdapter(var mListData: ArrayList<MusicBean>?, var callback: ((pos
         myViewHolder.stateTv.text = getStateName(mListData!![i].playState)
 
         myViewHolder.itemView.setOnClickListener {
+            mListData!![i].playState = MusicBean.MusicState.PLAYING
+            myViewHolder.stateTv.text = getStateName(mListData!![i].playState)
             callback?.invoke(i)
         }
     }

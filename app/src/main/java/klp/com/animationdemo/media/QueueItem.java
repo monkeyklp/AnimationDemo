@@ -17,24 +17,31 @@ public class QueueItem {
         this.mSong = song;
         mContext = context;
     }
+     @RequiresApi(api = Build.VERSION_CODES.N)
      public void run(final Function function) {
-         new Handler(Looper.getMainLooper()).post(new Runnable() {
-             @Override
-             public void run() {
-                 final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
-                 manager.setCallback(new MediaPlayerManager.Callback() {
-                     @RequiresApi(api = Build.VERSION_CODES.N)
-                     @Override
-                     public void next() {
-                         function.apply(this);
-                     }
+        if (MediaQueueCenter.getInstance().getPositionInList() <= MediaQueueCenter.getInstance().mUserSelectedPosition
+                || MediaQueueCenter.getInstance().getCurrentListPlayStated() == MusicBean.MusicState.PLAYED) {
+            function.apply(this);
+        } else {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    //发消息同步adater更新状态
+                    final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
+                    manager.setCallback(new MediaPlayerManager.Callback() {
+                        @Override
+                        public void next() {
 
-                     @Override
-                     public void connectState(boolean connected) {
-                     }
-                 });
-                 manager.play(mSong);
-             }
-         });
+                            function.apply(this);
+                        }
+
+                        @Override
+                        public void connectState(boolean connected) {
+                        }
+                    });
+                    manager.play(mSong);
+                }
+            });
+        }
      }
 }

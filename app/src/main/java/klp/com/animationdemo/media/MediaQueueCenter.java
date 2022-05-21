@@ -7,6 +7,7 @@ import android.os.Message;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Function;
 
@@ -17,6 +18,8 @@ public class MediaQueueCenter {
     private int MSG_EXPENSE_TASK = 1;
     private QueueItem mCurrentQueueItem;
     private Boolean isPlayRunning = false;
+    public int mUserSelectedPosition = 0;
+    private ArrayList<MusicBean> mAllMusicList = new ArrayList<>();
 
     private MediaQueueCenter() {
         init();
@@ -29,7 +32,12 @@ public class MediaQueueCenter {
     }
 
     public void enqueue(QueueItem song, boolean needStart) {
-        mQueue.offer(song);
+        try {
+            mQueue.put(song);
+            mAllMusicList.add(song.mSong);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (mWorkHandler != null && needStart) {
             mWorkHandler.removeMessages(MSG_EXPENSE_TASK);
             mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
@@ -66,13 +74,34 @@ public class MediaQueueCenter {
         };
     }
 
-    public void queryNext() {
+    private void queryNext() {
         isPlayRunning = false;
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
     }
 
+    public void startLooper(int startPosition) {
+        mUserSelectedPosition = startPosition;
+        changeListPlayState();
+        isPlayRunning = false;
+        mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
+    }
+
+    private void changeListPlayState() {
+        if (mAllMusicList.size() >= mUserSelectedPosition) {
+            mAllMusicList.get(mUserSelectedPosition).playState = MusicBean.MusicState.PLAYED;
+        }
+    }
+
+    public int getCurrentListPlayStated(){
+        return mAllMusicList.get(getPositionInList()).playState;
+    }
+
     public QueueItem getCurrentQueueItem() {
         return mCurrentQueueItem;
+    }
+
+    public int getPositionInList() {
+        return mAllMusicList.indexOf(mCurrentQueueItem.mSong);
     }
 
     public void stop() {
@@ -82,6 +111,7 @@ public class MediaQueueCenter {
     public void quit() {
         isPlayRunning = false;
         mQueue.clear();
+        mAllMusicList.clear();
         mWorkHandler.removeCallbacksAndMessages(null);
         mHandlerThread.quit();
     }
