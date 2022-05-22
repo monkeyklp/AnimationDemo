@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -16,14 +17,15 @@ import klp.com.animationdemo.media.MediaPlayerManager
 import klp.com.animationdemo.media.MediaQueueCenter
 import klp.com.animationdemo.media.MusicBean
 import klp.com.animationdemo.media.QueueItem
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MediaActivity : AppCompatActivity() {
     val musicList = arrayListOf("/storage/emulated/0/Music/D-Push-3.wav",
-            "/storage/emulated/0/12530/download/好久不见-周杰伦.mp3",
             "/storage/emulated/0/Music/D-Push-1.wav")
     var musicBeanList = arrayListOf<MusicBean>(MusicBean(1, "/storage/emulated/0/Music/D-Push-3.wav", MusicBean.MusicState.PLAY_DEFAULT),
-            MusicBean(2, "/storage/emulated/0/12530/download/好久不见-周杰伦.mp3", MusicBean.MusicState.PLAY_DEFAULT),
-            MusicBean(3, "/storage/emulated/0/Music/D-Push-1.wav", MusicBean.MusicState.PLAY_DEFAULT))
+            MusicBean(2, "/storage/emulated/0/Music/D-Push-1.wav", MusicBean.MusicState.PLAY_DEFAULT))
 
     //            + "typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     private var mRecyclerView: RecyclerView? = null
@@ -47,25 +49,7 @@ class MediaActivity : AppCompatActivity() {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView?.layoutManager = LinearLayoutManager(this)
         mAdapter = MusicListAdapter(musicBeanList) { position ->
-            MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback {
-                override fun next(song: MusicBean?) {//播放结束，开始自动轮播
-//                    MediaQueueCenter.getInstance().startLooper(position)
-                    mAdapter?.mListData?.get(position)?.playState = MusicBean.MusicState.PLAYED
-                    mAdapter?.notifyItemChanged(position)
-                }
-
-                override fun start(song: MusicBean?) {
-
-                }
-
-                override fun paused(song: MusicBean?) {
-
-                }
-
-                override fun connectState(connected: Boolean) {
-
-                }
-            }).play(mAdapter?.mListData?.get(position))
+            MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position))
         }
 
 
@@ -74,14 +58,15 @@ class MediaActivity : AppCompatActivity() {
         mRecyclerView?.layoutManager?.scrollToPosition(musicBeanList.size - 1)
         for (musicBean in musicBeanList) {
             var item = QueueItem(baseContext, musicBean)
-            MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
+//            MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
         }
-        MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback{
+
+        MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback {
             override fun next(song: MusicBean?) {
                 changeRecyclerView(song, MusicBean.MusicState.PLAYED)
-                var position = mAdapter?.mListData?.indexOf(song)?:0
-                if (position + 1 < mAdapter?.mListData?.size?:0 - 1) {
-                    MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position+1))
+                var position = mAdapter?.mListData?.indexOf(song) ?: 0
+                if (position + 1 < mAdapter?.mListData?.size ?: 0 - 1) {
+                    MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position + 1))
                 }
             }
 
@@ -98,21 +83,29 @@ class MediaActivity : AppCompatActivity() {
             }
 
         })
+        mRecyclerView?.postDelayed({
+            MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(0))
+        }, 200)
+
 
         findViewById<Button>(R.id.addTaskBtn).setOnClickListener {
-            Thread().run {
-                for (song in musicList) {
-                    Thread.sleep(1000)
-                    var musicBean = MusicBean(System.currentTimeMillis(), song, MusicBean.MusicState.PLAY_DEFAULT)
-                    var item = QueueItem(baseContext, musicBean)
-                    //如果
-                    MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
-                    mHandler.post {
-                        mAdapter?.addData(musicBean)
-                        smoothScroll2Position(mAdapter?.itemCount ?: 0 - 1)
+            for (song in musicList) {
+                MainScope().launch {
+                    delay(200)
+                var musicBean = MusicBean(System.currentTimeMillis(), song, MusicBean.MusicState.PLAY_DEFAULT)
+                    mAdapter?.addData(musicBean)
+                    smoothScroll2Position(mAdapter?.itemCount ?: 0 - 1)
+
+                    if (!MediaPlayerManager.getInstance().isPlaying) {
+                        var position = mAdapter?.mListData?.indexOf(MediaPlayerManager.getInstance().currentSong)
+                                ?: 0
+                        Log.d("MediaActivity", "" + position)
+                        //这边速度过快
+                        MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position + 1))
                     }
                 }
             }
+
         }
 
         findViewById<Button>(R.id.endTaskBtn).setOnClickListener {
@@ -122,8 +115,9 @@ class MediaActivity : AppCompatActivity() {
 
     }
 
+
     private fun changeRecyclerView(song: MusicBean?, state: Int) {
-        var position = mAdapter?.mListData?.indexOf(song)?:0
+        var position = mAdapter?.mListData?.indexOf(song) ?: 0
         mAdapter?.mListData?.get(position)?.playState = state
         mAdapter?.notifyItemChanged(position)
     }
