@@ -2,11 +2,12 @@ package klp.com.animationdemo
 
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,7 +51,26 @@ class MediaActivity : AppCompatActivity() {
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView?.layoutManager = LinearLayoutManager(this)
         mAdapter = MusicListAdapter(musicBeanList) { position ->
-            MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position))
+            MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback {
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun next(song: MusicBean?) {
+                    MediaPlayerManager.getInstance().unRegisterCallback(this)
+                    MediaQueueCenter.getInstance().reset(mAdapter?.mListData, position)
+                }
+
+                override fun start(song: MusicBean?) {
+
+                }
+
+                override fun paused(song: MusicBean?) {
+
+                }
+
+                override fun connectState(connected: Boolean) {
+
+                }
+
+            }).play(mAdapter?.mListData?.get(position))
         }
 
 
@@ -59,7 +79,7 @@ class MediaActivity : AppCompatActivity() {
         mRecyclerView?.layoutManager?.scrollToPosition(musicBeanList.size - 1)
         //太快，connect 还没好
         for (musicBean in musicBeanList) {
-            var item = QueueItem(baseContext, musicBean)
+            var item = QueueItem(musicBean)
             MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
         }
 
@@ -93,7 +113,7 @@ class MediaActivity : AppCompatActivity() {
                     mAdapter?.addData(musicBean)
                     smoothScroll2Position(mAdapter?.itemCount ?: 0 - 1)
 
-                    var item = QueueItem(baseContext, musicBean)
+                    var item = QueueItem(musicBean)
                     //如果
                     MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
                 }

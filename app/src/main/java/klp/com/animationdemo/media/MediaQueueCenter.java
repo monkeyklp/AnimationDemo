@@ -101,7 +101,22 @@ public class MediaQueueCenter {
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
     }
 
-    public void startLooper(int startPosition) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void reset(ArrayList<MusicBean> beans, int startPosition) {
+        stop();
+        mAllMusicList.addAll(beans);
+        beans.forEach((bean)->{
+            QueueItem item = new QueueItem(bean);
+            try {
+                mQueue.put(item);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        startLooper(startPosition);
+    }
+
+    private void startLooper(int startPosition) {
         mUserSelectedPosition = startPosition;
         isPlayRunning = false;
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
@@ -127,7 +142,11 @@ public class MediaQueueCenter {
 
 
     public void stop() {
-
+        isPlayRunning = false;
+        mCurrentQueueItem = null;
+        mQueue.clear();
+        mAllMusicList.clear();
+        mWorkHandler.removeCallbacksAndMessages(null);
     }
 
     public void quit() {

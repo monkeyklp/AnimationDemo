@@ -1,7 +1,6 @@
 package klp.com.animationdemo.media;
 
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,11 +11,9 @@ import java.util.function.Function;
 
 public class QueueItem implements MediaPlayerManager.Callback{
     MusicBean mSong;
-    Context mContext;
     Function mFunction;
-    public QueueItem(Context context, MusicBean song) {
+    public QueueItem(MusicBean song) {
         this.mSong = song;
-        mContext = context;
     }
      @RequiresApi(api = Build.VERSION_CODES.N)
      public void run(final Function function) {
