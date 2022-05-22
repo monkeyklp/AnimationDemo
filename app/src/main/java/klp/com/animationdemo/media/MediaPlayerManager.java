@@ -239,6 +239,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
                 break;
             case PlayService.STATE_RELEASED:
                 releaseAudioFocus();
+                observers.forEach((callback) -> callback.release(mSong));
                 break;
         }
     }
@@ -252,6 +253,7 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         void next(MusicBean song);
         void start(MusicBean song);
         void paused(MusicBean song);
+        void release(MusicBean song);
         void connectState(boolean connected);
 
     }

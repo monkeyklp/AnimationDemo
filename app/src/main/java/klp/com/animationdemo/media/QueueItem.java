@@ -47,6 +47,11 @@ public class QueueItem implements MediaPlayerManager.Callback{
     }
 
     @Override
+    public void release(MusicBean song) {
+
+    }
+
+    @Override
     public void connectState(boolean connected) {
 
     }

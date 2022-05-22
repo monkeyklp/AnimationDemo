@@ -89,6 +89,11 @@ public class MediaQueueCenter {
             }
 
             @Override
+            public void release(MusicBean song) {
+                changeListPlayState(song, MusicBean.MusicState.PLAYED);
+            }
+
+            @Override
             public void connectState(boolean connected) {
 
             }

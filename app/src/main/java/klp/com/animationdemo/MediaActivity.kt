@@ -66,6 +66,10 @@ class MediaActivity : AppCompatActivity() {
 
                 }
 
+                override fun release(song: MusicBean?) {
+
+                }
+
                 override fun connectState(connected: Boolean) {
 
                 }
@@ -95,6 +99,10 @@ class MediaActivity : AppCompatActivity() {
             }
 
             override fun paused(song: MusicBean?) {
+                changeRecyclerView(song, MusicBean.MusicState.PLAYED)
+            }
+
+            override fun release(song: MusicBean?) {
                 changeRecyclerView(song, MusicBean.MusicState.PLAYED)
             }
 
