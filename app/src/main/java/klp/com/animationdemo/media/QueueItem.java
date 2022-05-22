@@ -10,38 +10,47 @@ import androidx.annotation.RequiresApi;
 
 import java.util.function.Function;
 
-public class QueueItem {
+public class QueueItem implements MediaPlayerManager.Callback{
     MusicBean mSong;
     Context mContext;
+    Function mFunction;
     public QueueItem(Context context, MusicBean song) {
         this.mSong = song;
         mContext = context;
     }
      @RequiresApi(api = Build.VERSION_CODES.N)
      public void run(final Function function) {
+         mFunction = function;
         if (MediaQueueCenter.getInstance().getPositionInList() <= MediaQueueCenter.getInstance().mUserSelectedPosition
                 || MediaQueueCenter.getInstance().getCurrentListPlayStated() == MusicBean.MusicState.PLAYED) {
             function.apply(this);
         } else {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    //发消息同步adater更新状态
-//                    final MediaPlayerManager manager = MediaPlayerManager.getInstance(mContext);
-//                    manager.setCallback(new MediaPlayerManager.Callback() {
-//                        @Override
-//                        public void next() {
-//
-//                            function.apply(this);
-//                        }
-//
-//                        @Override
-//                        public void connectState(boolean connected) {
-//                        }
-//                    });
-//                    manager.play(mSong);
-                }
+            new Handler(Looper.getMainLooper()).post(() -> {
+                //发消息同步adater更新状态
+               MediaPlayerManager.getInstance().registerCallback(this).play(mSong);
             });
         }
      }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void next(MusicBean song) {
+        MediaPlayerManager.getInstance().unRegisterCallback(this);
+        mFunction.apply(this);
+    }
+
+    @Override
+    public void start(MusicBean song) {
+
+    }
+
+    @Override
+    public void paused(MusicBean song) {
+
+    }
+
+    @Override
+    public void connectState(boolean connected) {
+
+    }
 }

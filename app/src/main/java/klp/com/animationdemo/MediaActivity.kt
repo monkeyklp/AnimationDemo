@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class MediaActivity : AppCompatActivity() {
     val musicList = arrayListOf("/storage/emulated/0/Music/D-Push-3.wav",
+            "/storage/emulated/0/12530/download/好久不见-周杰伦.mp3",
             "/storage/emulated/0/Music/D-Push-1.wav")
     var musicBeanList = arrayListOf<MusicBean>(MusicBean(1, "/storage/emulated/0/Music/D-Push-3.wav", MusicBean.MusicState.PLAY_DEFAULT),
             MusicBean(2, "/storage/emulated/0/Music/D-Push-1.wav", MusicBean.MusicState.PLAY_DEFAULT))
@@ -56,18 +57,17 @@ class MediaActivity : AppCompatActivity() {
         mRecyclerView?.adapter = mAdapter
         //滚到最底部
         mRecyclerView?.layoutManager?.scrollToPosition(musicBeanList.size - 1)
+        //太快，connect 还没好
         for (musicBean in musicBeanList) {
             var item = QueueItem(baseContext, musicBean)
-//            MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
+            MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
         }
+
 
         MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback {
             override fun next(song: MusicBean?) {
                 changeRecyclerView(song, MusicBean.MusicState.PLAYED)
-                var position = mAdapter?.mListData?.indexOf(song) ?: 0
-                if (position + 1 < mAdapter?.mListData?.size ?: 0 - 1) {
-                    MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position + 1))
-                }
+                //重新设置队列
             }
 
             override fun start(song: MusicBean?) {
@@ -83,9 +83,6 @@ class MediaActivity : AppCompatActivity() {
             }
 
         })
-        mRecyclerView?.postDelayed({
-            MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(0))
-        }, 200)
 
 
         findViewById<Button>(R.id.addTaskBtn).setOnClickListener {
@@ -96,13 +93,9 @@ class MediaActivity : AppCompatActivity() {
                     mAdapter?.addData(musicBean)
                     smoothScroll2Position(mAdapter?.itemCount ?: 0 - 1)
 
-                    if (!MediaPlayerManager.getInstance().isPlaying) {
-                        var position = mAdapter?.mListData?.indexOf(MediaPlayerManager.getInstance().currentSong)
-                                ?: 0
-                        Log.d("MediaActivity", "" + position)
-                        //这边速度过快
-                        MediaPlayerManager.getInstance().play(mAdapter?.mListData?.get(position + 1))
-                    }
+                    var item = QueueItem(baseContext, musicBean)
+                    //如果
+                    MediaQueueCenter.getInstance().enqueue(item, !MediaPlayerManager.getInstance().isPlaying)
                 }
             }
 

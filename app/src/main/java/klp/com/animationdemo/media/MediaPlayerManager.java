@@ -31,6 +31,9 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
         return this;
     }
 
+    public void unRegisterCallback(Callback callback) {
+        observers.remove(callback);
+    }
     private MediaPlayerManager(Context context) {
         mContext = context;
     }
@@ -45,6 +48,10 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     }
 
     public void init() {
+        bindPlayService();
+    }
+
+    private void bindPlayService() {
         mContext.bindService(new Intent(mContext, PlayService.class), mConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -60,6 +67,9 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
             mService = ((PlayService.PlayBinder) service).getService();
             mService.setPlayStateChangeListener(MediaPlayerManager.this);
             Log.v(TAG, "onServiceConnected ");
+            if (!isPlaying()) {
+                play(mSong);
+            }
 //            if (mCallback != null) {
 //                mCallback.connectState(true);
 //            }
@@ -100,6 +110,9 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
                     mService.startPlayer(song.musicUrl);
                 }
             }
+        }  else {
+            mSong = song;
+            bindPlayService();
         }
 
     }

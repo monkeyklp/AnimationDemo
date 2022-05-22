@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.function.Function;
 
 public class MediaQueueCenter {
     private LinkedBlockingQueue mQueue = new LinkedBlockingQueue<QueueItem>();
@@ -18,7 +17,7 @@ public class MediaQueueCenter {
     private int MSG_EXPENSE_TASK = 1;
     private QueueItem mCurrentQueueItem;
     private Boolean isPlayRunning = false;
-    public int mUserSelectedPosition = 0;
+    public int mUserSelectedPosition = -1;
     private ArrayList<MusicBean> mAllMusicList = new ArrayList<>();
 
     private MediaQueueCenter() {
@@ -58,12 +57,9 @@ public class MediaQueueCenter {
                         item = (QueueItem) mQueue.take();
                         mCurrentQueueItem = item;
                         isPlayRunning = true;
-                        item.run(new Function() {
-                            @Override
-                            public Object apply(Object o) {
-                                queryNext();
-                                return null;
-                            }
+                        item.run(o -> {
+                            queryNext();
+                            return null;
                         });
                         mCurrentQueueItem = null;
                     } catch (InterruptedException e) {
@@ -72,7 +68,31 @@ public class MediaQueueCenter {
                 }
             }
         };
-//        addPlayStateCallback();
+        addPlayStateCallback();
+    }
+
+    private void addPlayStateCallback() {
+        MediaPlayerManager.getInstance().registerCallback(new MediaPlayerManager.Callback() {
+            @Override
+            public void next(MusicBean song) {
+                changeListPlayState(song, MusicBean.MusicState.PLAYED);
+            }
+
+            @Override
+            public void start(MusicBean song) {
+                changeListPlayState(song, MusicBean.MusicState.PLAYING);
+            }
+
+            @Override
+            public void paused(MusicBean song) {
+                changeListPlayState(song, MusicBean.MusicState.PLAYED);
+            }
+
+            @Override
+            public void connectState(boolean connected) {
+
+            }
+        });
     }
 
 
@@ -83,15 +103,14 @@ public class MediaQueueCenter {
 
     public void startLooper(int startPosition) {
         mUserSelectedPosition = startPosition;
-        changeListPlayState();
         isPlayRunning = false;
         mWorkHandler.sendEmptyMessage(MSG_EXPENSE_TASK);
     }
 
-    private void changeListPlayState() {
-        if (mAllMusicList.size() >= mUserSelectedPosition) {
-            mAllMusicList.get(mUserSelectedPosition).playState = MusicBean.MusicState.PLAYED;
-        }
+    private void changeListPlayState(MusicBean song, int state) {
+        int position = mAllMusicList.indexOf(song);
+        if (position == -1) return;
+        mAllMusicList.get(position).playState = state;
     }
 
     public int getCurrentListPlayStated(){
@@ -105,6 +124,7 @@ public class MediaQueueCenter {
     public int getPositionInList() {
         return mAllMusicList.indexOf(mCurrentQueueItem.mSong);
     }
+
 
     public void stop() {
 
