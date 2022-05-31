@@ -9,5 +9,6 @@ public class DemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SdkApplicationUtils.setApplication(this);
+        CrashHandler.getInstance().init(this);
     }
 }

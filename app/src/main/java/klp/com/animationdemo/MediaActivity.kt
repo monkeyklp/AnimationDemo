@@ -36,7 +36,8 @@ class MediaActivity : AppCompatActivity() {
     private var mSmartRefreshLayout: SmartRefreshLayout? = null
     private var mAdapter: MusicListAdapter? = null
     private var mHandler: Handler = Handler(Looper.getMainLooper())
-    private var messageScroll: MessageScroller? = null;
+    private var messageScroll: MessageScroller? = null
+    private var autoScroll: Boolean = true
 
     companion object {
         fun startActivity(fromActivity: AppCompatActivity) {
@@ -84,7 +85,16 @@ class MediaActivity : AppCompatActivity() {
 
             }).play(mAdapter?.mListData?.get(position))
         }
-
+        mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    autoScroll = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() <= mAdapter?.mListData?.size?:0 -1
+                }
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    autoScroll = false
+                }
+            }
+        })
 
         mRecyclerView?.adapter = mAdapter
         //滚到最底部
@@ -152,9 +162,11 @@ class MediaActivity : AppCompatActivity() {
     }
 
     private fun smoothScroll2Position(position: Int) {
-        messageScroll?.setRunnerStop()
-        messageScroll?.targetPosition = position
-        mRecyclerView?.layoutManager?.startSmoothScroll(messageScroll)
+        if (autoScroll) {
+            messageScroll?.setRunnerStop()
+            messageScroll?.targetPosition = position
+            mRecyclerView?.layoutManager?.startSmoothScroll(messageScroll)
+        }
     }
 
     override fun onStop() {
