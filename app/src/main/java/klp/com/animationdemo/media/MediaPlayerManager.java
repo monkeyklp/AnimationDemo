@@ -141,11 +141,13 @@ public class MediaPlayerManager implements PlayService.PlayStateChangeListener {
     }
 
     public void release() {
-        mSong = null;
-        mService.releasePlayer();
-        unbindPlayService();
-        mService.setPlayStateChangeListener(null);
-        mService = null;
+        if (mService != null) {
+            mSong = null;
+            mService.releasePlayer();
+            unbindPlayService();
+            mService.setPlayStateChangeListener(null);
+            mService = null;
+        }
     }
 
     public MusicBean getCurrentSong() {

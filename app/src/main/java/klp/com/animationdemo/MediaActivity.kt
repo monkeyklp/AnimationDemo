@@ -157,6 +157,7 @@ class MediaActivity : AppCompatActivity() {
 
     private fun changeRecyclerView(song: MusicBean?, state: Int) {
         var position = mAdapter?.mListData?.indexOf(song) ?: 0
+        if (position == -1) return
         mAdapter?.mListData?.get(position)?.playState = state
         mAdapter?.notifyItemChanged(position)
     }
