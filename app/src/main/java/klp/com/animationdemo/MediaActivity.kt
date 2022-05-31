@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import klp.com.animationdemo.adapter.MessageScroller
 import klp.com.animationdemo.adapter.MusicListAdapter
 import klp.com.animationdemo.media.MediaPlayerManager
@@ -31,6 +33,7 @@ class MediaActivity : AppCompatActivity() {
 
     //            + "typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     private var mRecyclerView: RecyclerView? = null
+    private var mSmartRefreshLayout: SmartRefreshLayout? = null
     private var mAdapter: MusicListAdapter? = null
     private var mHandler: Handler = Handler(Looper.getMainLooper())
     private var messageScroll: MessageScroller? = null;
@@ -48,7 +51,12 @@ class MediaActivity : AppCompatActivity() {
         MediaPlayerManager.getInstance().init()
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 100)
         messageScroll = MessageScroller(baseContext)
-        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView)
+        mSmartRefreshLayout = findViewById(R.id.smartRefreshLayout)
+        mSmartRefreshLayout?.setRefreshHeader(ClassicsHeader(this))
+        mSmartRefreshLayout?.setOnRefreshListener {
+            it.finishRefresh()
+        }
         mRecyclerView?.layoutManager = LinearLayoutManager(this)
         mAdapter = MusicListAdapter(musicBeanList) { position ->
             MediaPlayerManager.getInstance().registerCallback(object : MediaPlayerManager.Callback {
